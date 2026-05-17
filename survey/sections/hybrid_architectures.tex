@@ -1,0 +1,24 @@
+\section{Hybrid Classical--Quantum Architectures}
+\label{sec:hybrid}
+
+% WIP
+
+An emerging frontier in quantum imaging reconstruction is the development of hybrid architectures that combine classical neural network components with quantum-inspired or quantum-computational elements.
+
+\subsection{Quantum-Inspired Neural Networks}
+
+% check: tensor network archs, quantum kernels
+
+\citet{beer2020} demonstrated that deep quantum neural networks can be trained for supervised learning tasks, establishing the feasibility of parameterised quantum circuits as function approximators. While their work focused on general learning tasks rather than imaging, the architectures may be adaptable to quantum image reconstruction, particularly for problems where the data is natively quantum.
+
+\subsection{Variational Quantum Circuits for Image Processing}
+
+% add Killoran et al. CV-QNN details, PQC feature extraction, hybrid autoencoders
+
+\citet{killoran2019} introduced continuous-variable quantum neural networks operating on photonic quantum states, providing a framework that is naturally suited to quantum optical imaging systems. The potential for these architectures to process quantum imaging data without requiring intermediate classical conversion---thereby preserving quantum information---is theoretically appealing but experimentally challenging.
+
+\subsection{Integration Challenges and Opportunities}
+
+% expand: NISQ limits, interface overhead, training issues, native QDP advantages
+
+The practical integration of quantum computational elements into imaging pipelines faces significant challenges, including the limited qubit counts and gate fidelities of current noisy intermediate-scale quantum (NISQ) devices, the overhead of quantum--classical data conversion, and the difficulty of training parameterised quantum circuits. Nevertheless, the long-term potential for native quantum data processing motivates continued investigation.

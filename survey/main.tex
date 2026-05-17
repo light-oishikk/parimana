@@ -1,0 +1,52 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, citecolor=blue!60!black, urlcolor=blue!50!black}
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\setlength{\parskip}{0.3em}
+
+\title{\textbf{A Survey of Deep Learning-Based Reconstruction Methods\\for Quantum Imaging Systems}}
+
+\author{
+Oishik Kar\\
+\small Department of Computer Science and Engineering\\
+\small Indian Institute of Information Technology Dharwad\\
+\small \texttt{oishik.kar@iiitdwd.ac.in}
+}
+
+\date{June 2026 \quad\textbar\quad PARIMANA Summer Internship Program, Qmet Tech Foundation}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Quantum imaging systems---including ghost imaging, entangled-photon compressed sensing, and sub-shot-noise microscopy---exploit non-classical photon correlations to surpass classical limits in sensitivity and resolution. However, reconstructing high-quality images from the sparse, noisy measurements intrinsic to these systems remains computationally demanding. This survey systematically reviews deep learning architectures that have been applied to quantum imaging reconstruction. We categorise methods along three axes: imaging modality, neural network architecture, and reconstruction task. Our review reveals that deep learning enables measurement reductions of one to two orders of magnitude in ghost imaging, identifies a convergence towards U-Net and GAN-based architectures, and highlights critical gaps in standardised benchmarking. We conclude by discussing hybrid classical--quantum reconstruction frameworks and proposing directions for quantum-inspired neural architectures in imaging pipelines.
+\end{abstract}
+
+\noindent\textbf{Keywords:} quantum imaging, ghost imaging, deep learning, compressed sensing, image reconstruction, quantum optics, neural networks
+
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/ghost_imaging}
+\input{sections/compressed_sensing}
+\input{sections/sub_shot_noise}
+\input{sections/hybrid_architectures}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,30 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Quantum imaging harnesses the non-classical correlations of entangled or correlated photon pairs to achieve imaging modalities fundamentally inaccessible to classical light sources. Since the seminal demonstration of imaging via two-photon entanglement by \citet{pittman1995}, the field has expanded to encompass ghost imaging, quantum illumination, sub-shot-noise microscopy, and entanglement-assisted compressed sensing. These techniques promise advantages in spatial resolution, noise robustness, and the ability to image with photons that never interact with the object \citep{erkmen2010}.
+
+Despite these remarkable capabilities, a persistent bottleneck remains: \emph{image reconstruction}. Quantum imaging measurements are inherently sparse---limited by detector efficiencies, coincidence counting rates, and photon budgets---and the resulting inverse problems are severely ill-posed. Traditional reconstruction approaches rely on correlation computation or iterative optimisation, which demand large numbers of measurements and significant computation time.
+
+The emergence of deep learning as a powerful framework for solving inverse problems in computational imaging \citep{barbastathis2019, lecun2015} has opened new avenues for quantum imaging reconstruction. Neural networks can learn strong image priors from data, enabling high-quality reconstruction from far fewer measurements than classical algorithms require. This intersection of quantum optics and deep learning has produced a rapidly growing body of work spanning multiple imaging modalities and network architectures.
+
+\subsection{Scope and Contributions}
+
+This survey provides a systematic review of deep learning methods applied to quantum imaging reconstruction. We focus on three principal modalities:
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Quantum ghost imaging}, where deep learning dramatically reduces measurement requirements for image reconstruction from spatially correlated photon fields.
+    \item \textbf{Compressed sensing with quantum correlations}, where neural networks enhance reconstruction from sub-Nyquist quantum measurements.
+    \item \textbf{Sub-shot-noise imaging}, where deep learning denoising exploits quantum noise statistics to push sensitivity below the classical shot-noise limit.
+\end{enumerate}
+
+The contributions of this survey are:
+\begin{itemize}
+    \item A unified taxonomic framework classifying methods by imaging modality, DL architecture, and reconstruction task.
+    \item A detailed comparative analysis of deep learning approaches for ghost imaging reconstruction, including quantitative performance comparisons.
+    \item Identification of critical gaps in benchmarking, reproducibility, and standardisation.
+    \item A discussion of emerging hybrid classical--quantum architectures and future research directions.
+\end{itemize}
+
+\subsection{Paper Organisation}
+
+Section~\ref{sec:background} reviews the necessary background in quantum imaging and deep learning for inverse problems. Section~\ref{sec:ghost_imaging} surveys deep learning methods for ghost imaging in detail. Section~\ref{sec:compressed_sensing} covers compressed sensing with quantum correlations. Section~\ref{sec:sub_shot_noise} addresses sub-shot-noise imaging. Section~\ref{sec:hybrid} examines hybrid classical--quantum architectures. Section~\ref{sec:discussion} discusses open problems, and Section~\ref{sec:conclusion} concludes.

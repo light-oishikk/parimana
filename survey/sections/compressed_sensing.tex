@@ -1,0 +1,24 @@
+\section{Compressed Sensing with Quantum Correlations}
+\label{sec:compressed_sensing}
+
+Compressed sensing (CS) provides a natural framework for quantum imaging, where measurements are inherently limited by photon budgets and detector constraints. This section reviews the integration of deep learning with CS approaches that exploit quantum correlations.
+
+\subsection{Quantum Compressed Sensing Fundamentals}
+
+\citet{katz2009} demonstrated that ghost imaging can be formulated as a compressed sensing problem, achieving image reconstruction from significantly fewer measurements than the Nyquist limit by exploiting the sparsity of natural images. In this framework, the bucket detector measurements constitute the compressed observations $\mathbf{y} = \Phi \mathbf{x}$, where $\Phi$ is determined by the illumination patterns and $\mathbf{x}$ is the image to be recovered.
+
+The quantum advantage in this context arises from two sources. First, entangled photon pairs can provide measurement matrices with favourable incoherence properties, naturally satisfying the conditions required for CS recovery \citep{donoho2006, candes2006}. Second, quantum correlations enable noise rejection through coincidence detection, effectively improving the signal-to-noise ratio of each measurement.
+
+\subsection{Neural Network Enhanced CS Reconstruction}
+
+% need to add: LISTA-type approaches, deep unfolding, data-driven vs model-based comparison
+
+Traditional CS recovery algorithms (e.g., basis pursuit, iterative hard thresholding) are computationally expensive and require careful tuning of regularisation parameters. Deep learning offers two strategies for improvement: (i)~\emph{purely data-driven} approaches that learn a direct mapping from compressed measurements to images, bypassing explicit sparsity assumptions; and (ii)~\emph{deep unfolding} approaches that parameterise iterative CS algorithms as neural networks, combining the interpretability of model-based methods with the flexibility of learned parameters.
+
+Both strategies have shown promise in classical compressed imaging and are beginning to be explored in the quantum setting, where the unique noise statistics of photon-counting measurements introduce additional challenges.
+
+\subsection{Entanglement-Assisted Measurement Optimisation}
+
+% expand -- connection to tomography, entangled probes for measurement design
+
+An emerging direction explores the use of entangled photon states to design measurement bases that are optimally suited for compressed sensing recovery. This connects to the broader field of quantum state tomography, where similar compressed measurement strategies have been developed. The potential for deep learning to jointly optimise entangled measurement strategies and reconstruction networks---extending the end-to-end approach of \citet{wang2019} to the quantum domain---remains largely unexplored.

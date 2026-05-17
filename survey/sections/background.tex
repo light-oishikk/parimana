@@ -1,0 +1,42 @@
+\section{Background}
+\label{sec:background}
+
+\subsection{Quantum Imaging Fundamentals}
+
+Quantum imaging relies on photon pairs generated through spontaneous parametric down-conversion (SPDC), in which a pump photon incident on a nonlinear crystal produces two daughter photons---conventionally termed \emph{signal} and \emph{idler}---that are correlated in position, momentum, and time. These correlations arise from the phase-matching conditions of the nonlinear interaction and can be either classical or genuinely quantum (entangled) depending on the experimental configuration.
+
+The spatial correlations between signal and idler photons enable imaging protocols where information about an object is extracted by measuring correlations between spatially separated detectors, rather than by direct imaging. This principle underlies ghost imaging, quantum illumination, and related protocols.
+
+\subsection{Ghost Imaging: From Quantum to Computational}
+
+Ghost imaging (GI) was first demonstrated by \citet{pittman1995} using entangled photon pairs from SPDC. In the original configuration, the object is placed in the path of one photon (say, the signal), which is detected by a single-pixel (bucket) detector that records no spatial information. The partner idler photon, which never interacts with the object, is detected by a spatially resolving detector. Individually, neither detector's output contains an image; the image emerges only from the \emph{coincidence} correlations between the two detectors.
+
+The quantum nature of the original ghost imaging was debated after \citet{bennink2002} demonstrated a similar effect using classically correlated thermal light, and \citet{ferri2005} achieved high-resolution ghost imaging with pseudothermal sources. \citet{shapiro2008} subsequently introduced \emph{computational} ghost imaging (CGI), in which the spatially resolving detector is replaced entirely by computational knowledge of the illumination patterns. In CGI, a spatial light modulator generates known random patterns, the object is illuminated by each pattern in sequence, and a bucket detector records the total transmitted intensity. The image is reconstructed by correlating the known patterns with the bucket detector readings:
+
+\begin{equation}
+    I(\mathbf{r}) = \frac{1}{M} \sum_{m=1}^{M} \left( B_m - \langle B \rangle \right) \phi_m(\mathbf{r}),
+    \label{eq:gi_correlation}
+\end{equation}
+
+\noindent where $B_m$ is the bucket detector signal for the $m$-th pattern $\phi_m(\mathbf{r})$, $\langle B \rangle$ is the mean bucket signal, and $M$ is the total number of measurements. High-quality reconstruction via Eq.~\eqref{eq:gi_correlation} typically requires $M$ to be comparable to or greater than the number of pixels in the reconstructed image \citep{erkmen2010}, motivating the development of more efficient reconstruction methods.
+
+\subsection{Deep Learning for Inverse Problems}
+
+Deep learning has emerged as a dominant paradigm for solving inverse problems in imaging, where the goal is to recover a signal $\mathbf{x}$ from measurements $\mathbf{y} = \mathcal{A}(\mathbf{x}) + \mathbf{n}$, with $\mathcal{A}$ denoting the forward measurement operator and $\mathbf{n}$ representing noise \citep{barbastathis2019}.
+
+Key architectures relevant to quantum imaging include:
+
+\begin{itemize}
+    \item \textbf{Convolutional Neural Networks (CNNs):} Learn hierarchical spatial features through convolutional filters, enabling effective image-to-image mappings for denoising and reconstruction \citep{lecun2015}.
+    \item \textbf{U-Net:} An encoder--decoder architecture with skip connections that preserves fine-grained spatial information, widely adopted for biomedical and computational imaging \citep{ronneberger2015}.
+    \item \textbf{Generative Adversarial Networks (GANs):} A generator--discriminator framework that produces perceptually realistic reconstructions by learning the distribution of natural images \citep{goodfellow2014}.
+    \item \textbf{Autoencoders:} Learn compressed latent representations from which images can be reconstructed, relevant to dimensionality reduction in quantum measurement data.
+\end{itemize}
+
+\citet{barbastathis2019} provide a comprehensive review of deep learning for computational imaging, noting that learned approaches can outperform traditional iterative methods in both speed and quality, particularly when training data adequately represents the target image distribution.
+
+\subsection{Compressed Sensing Theory}
+
+Compressed sensing (CS) provides a mathematical framework for recovering sparse signals from sub-Nyquist measurements \citep{donoho2006, candes2006}. A signal $\mathbf{x} \in \mathbb{R}^n$ that is $k$-sparse in some basis $\Psi$ can be recovered from $m \ll n$ linear measurements $\mathbf{y} = \Phi \mathbf{x}$ if the measurement matrix $\Phi$ satisfies the restricted isometry property (RIP).
+
+The relevance of CS to quantum imaging is twofold. First, quantum correlations can provide natural incoherence between measurement and sparsity bases, satisfying CS recovery conditions \citep{katz2009}. Second, the extreme photon scarcity in quantum imaging makes sub-Nyquist reconstruction practically essential. \citet{katz2009} demonstrated compressive ghost imaging, achieving image reconstruction with far fewer measurements than the Nyquist limit by exploiting image sparsity, and subsequent work has combined CS with deep learning to further improve reconstruction quality.

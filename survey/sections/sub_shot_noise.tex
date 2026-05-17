@@ -1,0 +1,18 @@
+\section{Sub-Shot-Noise Imaging}
+\label{sec:sub_shot_noise}
+
+Sub-shot-noise imaging exploits quantum correlations between photon pairs to achieve sensitivity below the classical shot-noise limit, which bounds the minimum noise in measurements made with coherent (classical) light sources.
+
+\subsection{Quantum Noise Limits in Imaging}
+
+\citet{brida2010} provided the first experimental demonstration of sub-shot-noise quantum imaging, achieving a noise reduction of approximately 40\% below the shot-noise level using spatially entangled photon pairs from SPDC. \citet{samantaray2017} subsequently realised the first sub-shot-noise wide-field microscope, extending the technique from proof-of-concept to a practical imaging modality capable of operating over extended fields of view.
+
+The quantum enhancement in these systems arises from the photon-number correlations between signal and idler beams: by subtracting the idler intensity from the signal, classical noise sources are suppressed below the shot-noise floor. However, the improvement is limited by optical losses and detector inefficiencies, which degrade the quantum correlations.
+
+\subsection{Deep Learning Denoising for Quantum-Enhanced SNR}
+
+% add: noise models (Poissonian vs sub-Poissonian), DL denoising archs, compare w/ BM3D/NLM
+
+Deep learning denoising represents a promising direction for extending the practical advantage of sub-shot-noise imaging. Classical denoising algorithms assume Gaussian or Poissonian noise statistics, which do not accurately describe the sub-Poissonian noise in quantum-correlated imaging. Neural networks trained on data with appropriate quantum noise models could exploit the specific statistical structure of quantum measurements to achieve superior denoising performance.
+
+Furthermore, deep learning may help compensate for the optical losses that currently limit practical sub-shot-noise imaging, effectively widening the parameter regime in which quantum advantage is achievable. This possibility has been explored in related contexts such as deep learning microscopy \citep{rivenson2017}, but dedicated studies in the quantum imaging setting remain sparse.

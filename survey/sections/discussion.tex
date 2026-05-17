@@ -1,0 +1,30 @@
+\section{Discussion and Open Problems}
+\label{sec:discussion}
+
+% WIP -- flesh out later
+
+The preceding sections reveal several cross-cutting themes and open problems that merit discussion.
+
+\subsection{Benchmarking and Reproducibility}
+
+A critical gap in the current literature is the absence of standardised benchmarks for deep learning-based quantum imaging reconstruction. Different studies employ different image sizes, datasets, noise models, sampling ratios, and evaluation metrics, precluding rigorous cross-method comparison. The development of community benchmark datasets---ideally incorporating both simulated and experimental quantum imaging data---would significantly accelerate progress.
+
+% propose specific standards here
+
+\subsection{Scalability}
+
+Most reviewed deep learning methods operate on small images ($28 \times 28$ to $64 \times 64$ pixels). Scaling to the high-resolution images required for practical applications introduces challenges in both network architecture design and training data generation. The computational cost of simulating quantum imaging systems at scale further compounds this limitation.
+
+% look at classical DL scaling tricks that might transfer
+
+\subsection{Quantum Advantage in the Presence of Deep Learning}
+
+A fundamental open question is whether quantum correlations provide a genuine advantage over classical correlations when both are combined with state-of-the-art deep learning reconstruction. If neural networks can compensate for the additional noise in classical imaging, the practical quantum advantage may be smaller than previously assumed. Systematic studies comparing quantum and classical imaging under identical DL reconstruction pipelines are needed.
+
+% key open question -- needs careful framing
+
+\subsection{Hardware--Software Co-Design}
+
+% programmable photonics, differentiable optics, extend Wang 2019 idea
+
+The end-to-end optimisation paradigm demonstrated by \citet{wang2019} for ghost imaging suggests a broader opportunity for hardware--software co-design, where the optical system and reconstruction algorithm are jointly optimised. Extending this approach to quantum optical systems---where the measurement apparatus includes nonlinear crystals, parametric sources, and single-photon detectors---is a promising but technically challenging direction.
