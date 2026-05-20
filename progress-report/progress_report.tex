@@ -1,0 +1,171 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{parskip}
+
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, citecolor=blue!60!black, urlcolor=blue!60!black}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small PARIMANA Summer Internship 2026}
+\lhead{\small Progress Report -- Week 3}
+\rfoot{\small Page \thepage}
+
+\begin{document}
+
+% ── Title Page ──────────────────────────────────────────
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+
+{\Large\textsc{Qmet Tech Foundation}}\\[0.3cm]
+{\large\textsc{PARIMANA Summer Internship Program 2026}}\\[2cm]
+
+\rule{\textwidth}{1pt}\\[0.5cm]
+{\LARGE\bfseries Progress Report}\\[0.2cm]
+{\Large Weeks 1--3 \;\textbar\; 1--20 May 2026}\\[0.5cm]
+\rule{\textwidth}{1pt}\\[2cm]
+
+{\Large\bfseries A Survey of Deep Learning-Based Reconstruction\\Methods for Quantum Imaging Systems}\\[2cm]
+
+\begin{tabular}{rl}
+\textbf{Applicant:}  & Oishik Kar \\[4pt]
+\textbf{Programme:}  & B.Tech, Computer Science and Engineering \\[4pt]
+\textbf{Institution:}& Indian Institute of Information Technology Dharwad \\[4pt]
+\textbf{Supervisor:} & [Supervisor Name], IIIT Dharwad \\[4pt]
+\textbf{Report Date:}& 20 May 2026 \\
+\end{tabular}
+
+\vfill
+{\small Submitted in partial fulfillment of the PARIMANA Summer Internship Program 2026}
+\end{titlepage}
+
+% ── Executive Summary ──────────────────────────────────
+\section*{Executive Summary}
+
+This report summarises progress during the first three weeks (1--20 May 2026) of the PARIMANA Summer Internship. The project aims to produce a structured survey of deep learning methods applied to quantum imaging reconstruction. During the reporting period, the scope was formalised across three principal imaging modalities---quantum ghost imaging, compressed sensing with entangled photons, and sub-shot-noise imaging---and a systematic literature search was conducted, yielding approximately 45 candidate papers. Detailed review of the ghost imaging domain has been completed, identifying that deep learning methods enable a 10--100$\times$ reduction in the number of measurements required for faithful image reconstruction compared to traditional correlation-based approaches. Work on compressed sensing and hybrid classical--quantum architectures is underway and proceeding on schedule.
+
+% ── 1. Introduction ────────────────────────────────────
+\section{Introduction and Project Objectives}
+
+Quantum imaging exploits non-classical photon correlations---primarily generated via spontaneous parametric down-conversion (SPDC)---to achieve imaging capabilities that surpass classical limits in resolution, noise tolerance, and photon efficiency \citep{pittman1995, erkmen2010}. However, reconstructing high-quality images from the sparse, noisy measurements inherent to quantum optical systems remains a significant computational challenge.
+
+Recent advances in deep learning have demonstrated remarkable success in solving inverse problems in computational imaging \citep{barbastathis2019, lecun2015}. This project surveys the intersection of these two fields, with the following objectives:
+
+\begin{enumerate}[label=(\roman*)]
+    \item Systematically catalogue deep learning architectures applied to quantum ghost imaging, compressed sensing with entangled photons, and sub-shot-noise imaging.
+    \item Analyse hybrid classical--quantum reconstruction frameworks and their relative merits.
+    \item Identify methodological trends, standardisation gaps, and open research problems.
+    \item Propose directions for integrating quantum-inspired neural architectures into imaging pipelines.
+\end{enumerate}
+
+% ── 2. Methodology ─────────────────────────────────────
+\section{Methodology}
+
+\subsection{Systematic Search Strategy}
+A structured literature search was conducted across four databases: IEEE Xplore, arXiv (categories \texttt{quant-ph}, \texttt{eess.IV}, \texttt{cs.CV}), Google Scholar, and Optica Publishing Group. Search queries combined terms from two groups:
+
+\begin{itemize}
+    \item \textbf{Quantum imaging:} ``ghost imaging'', ``quantum imaging'', ``entangled photon imaging'', ``sub-shot-noise imaging'', ``SPDC imaging'', ``correlated photon''.
+    \item \textbf{Deep learning:} ``deep learning'', ``neural network'', ``CNN'', ``GAN'', ``U-Net'', ``autoencoder'', ``image reconstruction'', ``compressed sensing''.
+\end{itemize}
+
+\subsection{Inclusion and Exclusion Criteria}
+Papers were included if they (a)~applied a deep learning or neural-network method to a quantum or quantum-inspired imaging reconstruction task, or (b)~introduced foundational theory directly underpinning such methods. Review articles and purely classical computational imaging works were included only where they provided essential context.
+
+\subsection{Taxonomic Framework}
+A three-axis classification was developed to organise the surveyed literature:
+\begin{enumerate}
+    \item \textbf{Imaging modality:} ghost imaging, quantum compressed sensing, sub-shot-noise imaging, hybrid systems.
+    \item \textbf{DL architecture:} CNN, GAN, U-Net, autoencoder, fully connected, quantum-inspired.
+    \item \textbf{Reconstruction task:} compressed reconstruction, denoising, super-resolution, phase retrieval.
+\end{enumerate}
+
+% ── 3. Progress by Week ────────────────────────────────
+\section{Progress Summary}
+
+\subsection{Week 1 (1--7 May): Scope and Literature Discovery}
+
+\begin{itemize}
+    \item Finalised the survey scope around three core imaging modalities and the cross-cutting theme of hybrid classical--quantum frameworks.
+    \item Conducted the initial literature search, identifying \textbf{45 candidate papers} spanning foundational quantum optics, computational ghost imaging, and deep learning for inverse problems.
+    \item Developed the three-axis taxonomic classification framework described in Section~2.3.
+    \item Reviewed foundational works on quantum ghost imaging \citep{pittman1995, strekalov1995, bennink2002} and computational ghost imaging \citep{shapiro2008, ferri2005}.
+\end{itemize}
+
+\subsection{Week 2 (8--14 May): Deep Learning for Ghost Imaging}
+
+This week focused on a detailed review of deep learning methods applied to ghost imaging reconstruction:
+
+\begin{itemize}
+    \item \textbf{CNN-based methods:} Reviewed \citet{lyu2017}, the first demonstration of DL-based ghost imaging, which used a fully connected network to reconstruct $28 \times 28$ images at a 12.5\% sampling ratio. \citet{he2018} improved upon this with convolutional architectures showing better generalisation to unseen object categories.
+    \item \textbf{Computational GI with DL:} \citet{shimobaba2018} applied deep learning specifically to computational ghost imaging, demonstrating improvement over traditional correlation-based reconstruction.
+    \item \textbf{End-to-end approaches:} \citet{wang2019} introduced joint optimisation of illumination patterns and reconstruction networks, achieving 3--5\,dB PSNR improvement over methods that optimise these components separately.
+    \item \textbf{Key finding:} DL methods consistently enable a \textbf{10--100$\times$ reduction} in the number of measurements required for faithful reconstruction compared to traditional correlation-based approaches.
+\end{itemize}
+
+\subsection{Week 3 (15--20 May): Compressed Sensing and Hybrid Methods}
+
+\begin{itemize}
+    \item Reviewed compressive ghost imaging \citep{katz2009}, which first applied compressed sensing theory to ghost imaging, and its theoretical foundations \citep{donoho2006, candes2006}.
+    \item Examined few-photon imaging with entangled states \citep{morris2015}, which motivates the use of DL denoising in quantum-limited regimes.
+    \item Began reviewing quantum-inspired neural network architectures \citep{beer2020, killoran2019} for potential application to quantum image reconstruction.
+    \item Started cross-referencing hybrid classical--quantum reconstruction frameworks across the surveyed domains.
+\end{itemize}
+
+% ── 4. Key Findings ────────────────────────────────────
+\section{Key Findings to Date}
+
+\begin{enumerate}
+    \item \textbf{Measurement efficiency:} Deep learning methods reduce the number of required measurements by one to two orders of magnitude across all reviewed ghost imaging studies, with end-to-end learned approaches \citep{wang2019} providing the largest gains.
+
+    \item \textbf{Architecture convergence:} The field is converging towards U-Net \citep{ronneberger2015} and GAN-based \citep{goodfellow2014} architectures for perceptually high-quality reconstruction, mirroring trends in classical computational imaging \citep{barbastathis2019}.
+
+    \item \textbf{Quantum--classical boundary:} The transition from quantum to classical to computational ghost imaging \citep{erkmen2010} raises questions about when quantum resources provide genuine advantage; DL methods may narrow this gap further by compensating for classical noise.
+
+    \item \textbf{Benchmarking deficit:} No standardised benchmark datasets or evaluation protocols exist across the reviewed papers, making direct comparison of methods difficult.
+\end{enumerate}
+
+% ── 5. Challenges ──────────────────────────────────────
+\section{Challenges Encountered}
+
+\begin{itemize}
+    \item \textbf{Interdisciplinary scope:} The survey spans quantum optics, information theory, and deep learning, requiring synthesis across communities with different conventions, notation, and publication venues.
+    \item \textbf{Rapidly evolving field:} Several relevant preprints have appeared on arXiv during the survey period, necessitating ongoing monitoring.
+    \item \textbf{Reproducibility:} Many experimental papers do not release code or datasets, complicating efforts to compare reported performance metrics.
+    \item \textbf{Terminological inconsistency:} The terms ``quantum imaging'', ``ghost imaging'', and ``correlated imaging'' are used with varying specificity across the literature.
+\end{itemize}
+
+% ── 6. Plan for Remaining Period ───────────────────────
+\section{Plan for Weeks 4--8}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}clp{8.5cm}@{}}
+\toprule
+\textbf{Week} & \textbf{Period} & \textbf{Planned Activities} \\
+\midrule
+4 & 22--28 May & Complete review of sub-shot-noise imaging methods; begin hybrid architecture analysis \\
+5 & 29 May--4 Jun & Deep dive into quantum-inspired neural networks and variational quantum circuits for imaging \\
+6 & 5--11 Jun & Synthesise findings across domains; produce comparative analysis tables; identify research gaps \\
+7 & 12--18 Jun & Draft remaining survey sections; integrate cross-domain discussion and open problems \\
+8 & 19--25 Jun & Final compilation; internal review; proofreading; prepare submission draft \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ── References ─────────────────────────────────────────
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
