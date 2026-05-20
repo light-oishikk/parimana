@@ -29,16 +29,17 @@ Table~\ref{tab:gi_comparison} summarises the key characteristics and reported pe
 
 \begin{table*}[t]
 \centering
+\footnotesize
 \caption{Comparison of deep learning methods for ghost imaging reconstruction.}
 \label{tab:gi_comparison}
-\begin{tabular}{@{}llcccc@{}}
+\begin{tabular}{@{}lp{2.2cm}cccl@{}}
 \toprule
-\textbf{Reference} & \textbf{Architecture} & \textbf{Image Size} & \textbf{Sampling Ratio} & \textbf{Data Type} & \textbf{Key Contribution} \\
+\textbf{Reference} & \textbf{Architecture} & \textbf{Size} & \textbf{Sampling} & \textbf{Data} & \textbf{Key Contribution} \\
 \midrule
-\citet{lyu2017}       & Fully connected  & $28\times28$   & 12.5\%  & Simulated     & First DL ghost imaging \\
-\citet{he2018}        & CNN              & $28\times28$   & $<$10\% & Sim.\ + Expt. & Improved generalisation \\
-\citet{shimobaba2018} & CNN              & $64\times64$   & 25\%    & Simulated     & Computational GI focus \\
-\citet{wang2019}      & End-to-end CNN   & $64\times64$   & 6.25\%  & Simulated     & Joint pattern--network opt. \\
+Lyu et al.\ [2017]       & Fully connected  & $28\times28$   & 12.5\%  & Sim.     & First DL-based ghost imaging reconstruction \\
+He et al.\ [2018]        & CNN              & $28\times28$   & $<$10\% & Sim.+Exp. & Improved generalisation to unseen categories \\
+Shimobaba et al.\ [2018] & CNN              & $64\times64$   & 25\%    & Sim.     & Applied DL to computational GI \\
+Wang et al.\ [2019]      & End-to-end CNN   & $64\times64$   & 6.25\%  & Sim.     & Joint optimisation of patterns and network \\
 \bottomrule
 \end{tabular}
 \end{table*}

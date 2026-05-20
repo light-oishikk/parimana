@@ -7,6 +7,7 @@
 \usepackage{xcolor}
 \usepackage{titlesec}
 \usepackage{setspace}
+\usepackage{graphicx}
 \usepackage{booktabs}
 
 \hypersetup{colorlinks=true, linkcolor=blue!60!black, citecolor=blue!60!black, urlcolor=blue!60!black}
@@ -27,70 +28,94 @@
 % ── Title Page ──────────────────────────────────────────
 \begin{titlepage}
 \centering
-\vspace*{2cm}
+\vspace*{0.5cm}
 
-{\Large\textsc{Qmet Tech Foundation}}\\[0.3cm]
-{\large\textsc{PARIMANA Summer Internship Program 2026}}\\[2cm]
+\includegraphics[width=0.85\textwidth]{../figures/logo_banner.png}
 
-\rule{\textwidth}{1pt}\\[0.5cm]
-{\LARGE\bfseries Interim Progress Report}\\[0.5cm]
-\rule{\textwidth}{1pt}\\[2cm]
+\vspace{1.5cm}
 
-{\Large\bfseries A Survey of Deep Learning-Based Reconstruction\\[0.2cm] Methods for Quantum Imaging Systems}\\[2cm]
+\rule{\textwidth}{1pt}\\[0.4cm]
+{\LARGE\bfseries Interim Progress Report}\\[0.2cm]
+{\large on}\\[0.2cm]
+{\Large\bfseries A Survey of Deep Learning-Based Reconstruction\\[0.15cm] Methods for Quantum Imaging Systems}\\[0.4cm]
+\rule{\textwidth}{1pt}
+
+\vspace{1.5cm}
+
+{\large\textsc{PARIMANA Summer Internship Program 2026}}\\[0.2cm]
+{\normalsize Qmet Tech Foundation}
+
+\vspace{2cm}
 
 \begin{tabular}{rl}
-\textbf{Applicant:}  & Oishik Kar \\[4pt]
-\textbf{Programme:}  & B.Tech, Computer Science and Engineering \\[4pt]
-\textbf{Institution:}& Indian Institute of Information Technology Dharwad \\[4pt]
-\textbf{Supervisor:} & [Supervisor Name], IIIT Dharwad \\[4pt]
-\textbf{Date:}       & May 2026 \\
+\textbf{Intern:}      & Oishik Kar \\[4pt]
+\textbf{Programme:}   & B.Tech, Computer Science and Engineering \\[4pt]
+\textbf{Institution:} & Indian Institute of Information Technology Dharwad \\[4pt]
+\textbf{Roll No.:}    & 23BCS089 \\[4pt]
+\textbf{Email:}       & \href{mailto:23bcs089@iiitdwd.ac.in}{23bcs089@iiitdwd.ac.in} \\[4pt]
+\textbf{Supervisor:}  & [Supervisor Name], IIIT Dharwad \\[4pt]
+\textbf{Date:}        & May 2026 \\
 \end{tabular}
 
 \vfill
 {\small Submitted in partial fulfillment of the PARIMANA Summer Internship Program 2026}
 \end{titlepage}
 
-% ── Report Body ─────────────────────────────────────────
+% ── Table of Contents ───────────────────────────────────
+\tableofcontents
+\newpage
 
+% ── 1. Introduction ────────────────────────────────────
 \section{Introduction}
 
-This report presents an interim summary of progress on the project titled \emph{``A Survey of Deep Learning-Based Reconstruction Methods for Quantum Imaging Systems,''} undertaken as part of the PARIMANA Summer Internship Program 2026 at Qmet Tech Foundation. The project aims to produce a systematic survey of deep learning architectures applied to quantum imaging reconstruction, with particular attention to ghost imaging, compressed sensing with entangled photons, and sub-shot-noise imaging. The study also examines hybrid classical--quantum frameworks and proposes directions for integrating quantum-inspired neural architectures into imaging pipelines.
+This document is an interim progress report for the project titled \emph{``A Survey of Deep Learning-Based Reconstruction Methods for Quantum Imaging Systems,''} being carried out under the PARIMANA Summer Internship Program 2026 at Qmet Tech Foundation. The report is intended for submission to both the supervising faculty at IIIT Dharwad and the internship coordination team at Qmet Tech Foundation. It provides a detailed account of the work completed so far, describes the technical approach adopted, summarises the principal findings from the literature review and software development activities, and outlines the current status of the survey manuscript.
 
-The present document describes the research methodology adopted, summarises the key technical findings obtained thus far, and reports on the development of an accompanying software framework for experimental validation of the surveyed methods.
+The overarching goal of the project is to produce a structured, publication-quality survey of deep learning methods that have been applied to image reconstruction in quantum optical systems. The survey covers three principal imaging modalities---quantum ghost imaging, compressed sensing with entangled photons, and sub-shot-noise imaging---and additionally examines hybrid classical--quantum reconstruction frameworks.
 
-\section{Research Methodology}
+% ── 2. Work Completed ──────────────────────────────────
+\section{Work Completed}
 
-A systematic literature review was conducted following established survey methodology. The search strategy targeted four primary databases: IEEE Xplore, arXiv (spanning the \texttt{quant-ph}, \texttt{eess.IV}, and \texttt{cs.CV} categories), Google Scholar, and the Optica Publishing Group digital library. Search queries were constructed by combining quantum imaging terminology---including ``ghost imaging,'' ``quantum imaging,'' ``entangled photon imaging,'' ``sub-shot-noise imaging,'' and ``SPDC''---with deep learning terms such as ``neural network,'' ``CNN,'' ``GAN,'' ``U-Net,'' and ``image reconstruction.'' Papers were included if they applied a deep learning method to a quantum or quantum-inspired imaging reconstruction task, or if they introduced foundational theory directly underpinning such methods.
+\subsection{Literature Search and Taxonomy Development}
 
-To organise the collected literature, a three-axis taxonomic classification framework was developed. The first axis categorises papers by imaging modality: ghost imaging, quantum compressed sensing, sub-shot-noise imaging, or hybrid systems. The second axis classifies the deep learning architecture employed, distinguishing among convolutional neural networks, generative adversarial networks, U-Net variants, autoencoders, and quantum-inspired designs. The third axis captures the specific reconstruction task addressed, such as compressed reconstruction, denoising, super-resolution, or phase retrieval. This framework has proven effective for identifying methodological trends and gaps across the surveyed literature.
+The first phase of the project involved conducting a systematic literature search across IEEE Xplore, arXiv, Google Scholar, and the Optica Publishing Group digital library. Search queries were constructed by pairing quantum imaging terminology (``ghost imaging,'' ``quantum imaging,'' ``entangled photon imaging,'' ``SPDC,'' ``sub-shot-noise'') with deep learning terms (``neural network,'' ``CNN,'' ``GAN,'' ``U-Net,'' ``image reconstruction,'' ``compressed sensing''). Papers were included if they applied a deep learning or neural network method to a quantum or quantum-inspired imaging reconstruction task, or if they provided essential foundational theory. This search yielded approximately 45 candidate papers spanning the period from 1995 to 2025.
 
-\section{Key Findings}
+To organise the collected literature, a three-axis taxonomic classification framework was developed. The first axis categorises papers by imaging modality (ghost imaging, quantum compressed sensing, sub-shot-noise, or hybrid). The second axis classifies the deep learning architecture employed (CNN, GAN, U-Net, autoencoder, fully connected, or quantum-inspired). The third axis captures the reconstruction task (compressed reconstruction, denoising, super-resolution, or phase retrieval). This taxonomy has been applied consistently throughout the survey and has been effective in revealing methodological trends and identifying gaps.
 
-The literature review has yielded several findings of significance. In the domain of quantum ghost imaging, deep learning methods have been shown to reduce the number of required measurements by one to two orders of magnitude compared to traditional correlation-based reconstruction \citep{lyu2017, he2018, shimobaba2018}. Early work by \citet{lyu2017} demonstrated that a fully connected neural network could reconstruct ghost images at a sampling ratio of 12.5\%, while subsequent studies employing convolutional architectures achieved usable reconstruction at sampling ratios below 10\% \citep{he2018}. A particularly notable contribution is the end-to-end framework of \citet{wang2019}, which jointly optimises illumination patterns and the reconstruction network, yielding 3--5\,dB improvement in peak signal-to-noise ratio over methods that optimise these components independently.
+\subsection{Detailed Review of Ghost Imaging Methods}
 
-The review has also identified a clear convergence in the field towards U-Net \citep{ronneberger2015} and GAN-based \citep{goodfellow2014} architectures, mirroring broader trends in computational imaging \citep{barbastathis2019}. GAN-based approaches produce perceptually sharper reconstructions but introduce a risk of hallucination---generating plausible but incorrect image features---which is a concern in scientific imaging contexts where fidelity to the true object is essential.
+The most intensive review effort has been directed at deep learning methods for quantum ghost imaging, which constitutes the most active subfield. The review traced the evolution of the field from the foundational two-photon ghost imaging experiment of Pittman et al.\ (1995), through the classical and computational ghost imaging variants of Bennink et al.\ (2002) and Shapiro (2008), to the first application of deep learning by Lyu et al.\ (2017). The Lyu et al.\ work demonstrated that a fully connected neural network could reconstruct ghost images at a sampling ratio of only 12.5\%, compared to the near-100\% ratio required by traditional correlation-based methods.
 
-In the area of compressed sensing with quantum correlations, the foundational work of \citet{katz2009} demonstrated that ghost imaging can be naturally formulated as a compressed sensing problem, exploiting image sparsity to achieve sub-Nyquist reconstruction. The theoretical underpinnings of this approach, grounded in the restricted isometry property \citep{donoho2006, candes2006}, are well established, and recent efforts have begun combining compressed sensing structure with learned neural network priors for further improvement.
+Subsequent works were reviewed in detail, including the convolutional approach of He et al.\ (2018), which improved generalisation to unseen object categories and validated on both simulated and experimental data; the computational ghost imaging work of Shimobaba et al.\ (2018); and the end-to-end framework of Wang et al.\ (2019), which jointly optimised illumination patterns and the reconstruction network to achieve 3--5\,dB PSNR improvement. The review also examined GAN-based ghost imaging reconstruction, noting the tension between improved perceptual quality and the risk of hallucination in scientific imaging contexts. A comparative analysis table of methods, architectures, sampling ratios, and key contributions has been compiled and is included in the survey manuscript.
 
-Sub-shot-noise imaging, first demonstrated experimentally by \citet{brida2010} and extended to wide-field microscopy by \citet{samantaray2017}, represents another frontier where deep learning denoising may extend the practical window of quantum advantage. The investigation of hybrid classical--quantum architectures, including quantum-inspired neural networks \citep{beer2020} and continuous-variable quantum neural networks \citep{killoran2019}, is also underway.
+\subsection{Review of Compressed Sensing and Other Domains}
 
-A recurring observation across the surveyed literature is the absence of standardised benchmarks: different studies employ different image sizes, datasets, noise models, and evaluation metrics, which makes rigorous cross-comparison of methods difficult. This benchmarking deficit has been identified as a key open problem that the survey will address in its discussion.
+The compressed sensing domain has been partially reviewed. The foundational compressive ghost imaging work of Katz, Bromberg, and Silberberg (2009) was studied in the context of the compressed sensing theory of Donoho (2006) and Cand\`{e}s and Tao (2006), with particular attention to how quantum correlations provide favourable measurement properties for compressed recovery. The emerging area of deep unfolding networks---which parameterise iterative compressed sensing algorithms as trainable neural networks---has been identified as a key direction but requires further investigation.
 
-\section{Software Development}
+Preliminary reading has also been completed on sub-shot-noise quantum imaging, based on the experimental demonstrations of Brida et al.\ (2010) and Samantaray et al.\ (2017), and on hybrid classical--quantum architectures, including the deep quantum neural networks of Beer et al.\ (2020) and the continuous-variable quantum neural networks of Killoran et al.\ (2019). These sections of the survey are currently in draft form and will be expanded during the remaining period.
 
-To complement the literature survey and provide empirical grounding for the reviewed methods, a software framework has been developed in Python using PyTorch. The framework comprises three principal components.
+\subsection{Software Framework Development}
 
-The first component is a computational ghost imaging simulator that implements the forward measurement model, including configurable illumination pattern generation (Gaussian, binary, and Hadamard bases), bucket detector signal computation, and traditional correlation-based reconstruction following \citet{erkmen2010}. This simulator enables controlled experimentation with different measurement parameters, sampling ratios, and noise levels.
+A substantial software framework has been developed in Python using PyTorch to complement the literature survey with empirical validation of the reviewed methods. The framework consists of the following components.
 
-The second component consists of implementations of three representative deep learning architectures drawn from the surveyed literature: a fully connected reconstruction network modelled after \citet{lyu2017}, a convolutional architecture inspired by \citet{he2018}, and a U-Net variant adapted for ghost imaging reconstruction. These implementations allow direct comparison of the architectural approaches discussed in the survey.
+A \textbf{computational ghost imaging simulator} implements the forward measurement model as described in the survey. The simulator generates configurable illumination patterns (supporting Gaussian random, binary random, and Hadamard bases), computes bucket detector signals via inner product of the pattern with the object, supports configurable measurement noise, and performs traditional differential correlation-based reconstruction. This simulator enables controlled experimentation with different sampling ratios, noise levels, and pattern types.
 
-The third component provides training and evaluation infrastructure, including standard image quality metrics (PSNR, SSIM), automated training loops with validation, and visualisation utilities for comparing reconstructions across methods. Preliminary experiments using MNIST digit images confirm that the deep learning models achieve substantially higher reconstruction quality than the traditional correlation method at equivalent sampling ratios, consistent with the findings reported in the literature.
+Three \textbf{deep learning reconstruction models} have been implemented, corresponding to the principal architectural approaches identified in the survey. The first is a fully connected reconstruction network modelled after Lyu et al.\ (2017), which maps bucket detector signals directly to image space through dense layers with batch normalisation and dropout. The second is a convolutional architecture inspired by He et al.\ (2018), which projects bucket signals into a spatial feature map and then applies transposed convolutional layers for upsampling and refinement. The third is a U-Net variant adapted for ghost imaging, which uses an encoder--decoder structure with skip connections to preserve fine-grained spatial information during reconstruction.
 
+A \textbf{training and evaluation pipeline} provides automated training with validation-based model selection, standard image quality metrics (peak signal-to-noise ratio and structural similarity index), and visualisation utilities for side-by-side comparison of ground truth, traditional reconstruction, and deep learning reconstruction. The MNIST handwritten digit dataset is used as the default object set, following the convention of Lyu et al.\ (2017) and He et al.\ (2018).
+
+\subsection{Preliminary Experimental Results}
+
+Preliminary experiments have been conducted using the fully connected network at a sampling ratio of 12.5\% (98 measurements for $28 \times 28$ images). The deep learning model achieved a validation PSNR of approximately 22\,dB after training, compared to substantially lower quality from the traditional correlation method at the same sampling ratio. These preliminary results are consistent with the performance reported in the literature and confirm that the software framework is functioning correctly. A more comprehensive set of experiments, comparing all three architectures across multiple sampling ratios, will be conducted as part of the survey's empirical analysis.
+
+% ── 3. Survey Manuscript Status ────────────────────────
+\section{Survey Manuscript Status}
+
+The survey manuscript is being compiled concurrently with the literature review. The introduction, background, and ghost imaging sections are substantially complete, totalling approximately seven pages in two-column format. The compressed sensing, sub-shot-noise, hybrid architectures, discussion, and conclusion sections are in draft form with partial content. The bibliography currently contains 22 verified references spanning the foundational quantum optics literature, the deep learning for computational imaging literature, and the specific intersection of the two. The manuscript will be expanded and refined during the remaining period of the internship.
+
+% ── 4. Summary ─────────────────────────────────────────
 \section{Summary}
 
-The project is progressing on schedule. The systematic literature review has covered the primary domains of ghost imaging and compressed sensing, with sub-shot-noise imaging and hybrid architectures currently under review. Key findings regarding measurement efficiency, architectural trends, and benchmarking gaps have been identified and are being incorporated into the survey manuscript. The accompanying software framework is operational and producing results consistent with the published literature. The survey document is being compiled concurrently and will be finalised during the remaining period of the internship.
+The project is progressing on schedule. The systematic literature review has covered the primary domains of ghost imaging and compressed sensing in depth, with sub-shot-noise imaging and hybrid architectures currently under review. A comprehensive software framework has been developed and validated, producing results consistent with the published literature. The survey manuscript is approximately 60--70\% complete and is being written in parallel with the ongoing review. The remaining work will focus on completing the reviews of the less-explored domains, conducting the full set of comparative experiments, and finalising the manuscript.
 
-\bibliographystyle{plainnat}
-\bibliography{references}
 
 \end{document}

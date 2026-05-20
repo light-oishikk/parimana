@@ -24,14 +24,7 @@ The quantum nature of the original ghost imaging was debated after \citet{bennin
 
 Deep learning has emerged as a dominant paradigm for solving inverse problems in imaging, where the goal is to recover a signal $\mathbf{x}$ from measurements $\mathbf{y} = \mathcal{A}(\mathbf{x}) + \mathbf{n}$, with $\mathcal{A}$ denoting the forward measurement operator and $\mathbf{n}$ representing noise \citep{barbastathis2019}.
 
-Key architectures relevant to quantum imaging include:
-
-\begin{itemize}
-    \item \textbf{Convolutional Neural Networks (CNNs):} Learn hierarchical spatial features through convolutional filters, enabling effective image-to-image mappings for denoising and reconstruction \citep{lecun2015}.
-    \item \textbf{U-Net:} An encoder--decoder architecture with skip connections that preserves fine-grained spatial information, widely adopted for biomedical and computational imaging \citep{ronneberger2015}.
-    \item \textbf{Generative Adversarial Networks (GANs):} A generator--discriminator framework that produces perceptually realistic reconstructions by learning the distribution of natural images \citep{goodfellow2014}.
-    \item \textbf{Autoencoders:} Learn compressed latent representations from which images can be reconstructed, relevant to dimensionality reduction in quantum measurement data.
-\end{itemize}
+Several architecture families are particularly relevant to quantum imaging. Convolutional neural networks (CNNs) learn hierarchical spatial features through convolutional filters, enabling effective image-to-image mappings for denoising and reconstruction \citep{lecun2015}. The U-Net architecture \citep{ronneberger2015} extends the convolutional approach with an encoder--decoder structure and skip connections that preserve fine-grained spatial information, and has been widely adopted for biomedical and computational imaging tasks. Generative adversarial networks (GANs) employ a generator--discriminator framework that produces perceptually realistic reconstructions by learning the distribution of natural images \citep{goodfellow2014}. Autoencoders, which learn compressed latent representations from which images can be reconstructed, are also relevant for dimensionality reduction in quantum measurement data.
 
 \citet{barbastathis2019} provide a comprehensive review of deep learning for computational imaging, noting that learned approaches can outperform traditional iterative methods in both speed and quality, particularly when training data adequately represents the target image distribution.
 
