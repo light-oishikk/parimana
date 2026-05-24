@@ -1,30 +1,32 @@
 \section{Discussion and Open Problems}
 \label{sec:discussion}
 
-% WIP -- flesh out later
-
-The preceding sections reveal several cross-cutting themes and open problems that merit discussion.
+Several open problems cut across the domains reviewed above.
 
 \subsection{Benchmarking and Reproducibility}
 
-A critical gap in the current literature is the absence of standardised benchmarks for deep learning-based quantum imaging reconstruction. Different studies employ different image sizes, datasets, noise models, sampling ratios, and evaluation metrics, precluding rigorous cross-method comparison. The development of community benchmark datasets---ideally incorporating both simulated and experimental quantum imaging data---would significantly accelerate progress.
+A critical gap in the current literature is the absence of standardised benchmarks for deep learning-based quantum imaging reconstruction. Different studies employ different image sizes, datasets, noise models, sampling ratios, and evaluation metrics, precluding rigorous cross-method comparison.
 
-% propose specific standards here
+To address this, the community would benefit from adopting a fixed set of benchmark conditions: standard image sizes ($28 \times 28$, $64 \times 64$, and $128 \times 128$ pixels), standardised noise models (Poisson noise at specific mean photon counts per pixel, e.g., 0.1, 1, and 10), common datasets (MNIST as a baseline, with CIFAR-10 or CelebA for evaluating performance on more complex natural images), and unified metrics (PSNR, SSIM, and perceptual quality measures such as LPIPS). The ghost imaging community would particularly benefit from shared experimental datasets with calibrated noise parameters and known ground truth, since most current work relies on individually simulated data with varying and often under-documented noise assumptions.
 
 \subsection{Scalability}
 
 Most reviewed deep learning methods operate on small images ($28 \times 28$ to $64 \times 64$ pixels). Scaling to the high-resolution images required for practical applications introduces challenges in both network architecture design and training data generation. The computational cost of simulating quantum imaging systems at scale further compounds this limitation.
 
-% look at classical DL scaling tricks that might transfer
+Several techniques from classical deep learning could help address the resolution gap. Progressive training, where the network is first trained at low resolution and then fine-tuned at progressively higher resolutions, can reduce training cost and improve convergence. Patch-based inference, where overlapping image tiles are processed independently and stitched together, allows networks trained on small images to be applied to arbitrarily large inputs. Attention mechanisms can capture long-range spatial dependencies without the quadratic memory cost of processing the full image at once.
+
+Deep unfolding architectures \citep{monga2021} may scale more gracefully than purely data-driven methods, because the physics-based structure constrains the parameter space and reduces the amount of training data required at each resolution. For hybrid quantum--classical approaches, the qubit bottleneck discussed in Section~\ref{sec:hybrid} imposes an additional scaling barrier not present in purely classical pipelines.
 
 \subsection{Quantum Advantage in the Presence of Deep Learning}
 
-A fundamental open question is whether quantum correlations provide a genuine advantage over classical correlations when both are combined with state-of-the-art deep learning reconstruction. If neural networks can compensate for the additional noise in classical imaging, the practical quantum advantage may be smaller than previously assumed. Systematic studies comparing quantum and classical imaging under identical DL reconstruction pipelines are needed.
+A fundamental open question is whether quantum correlations provide a genuine advantage over classical correlations when both are combined with state-of-the-art deep learning reconstruction. If neural networks can compensate for the additional noise in classical imaging, the practical quantum advantage may be smaller than previously assumed. The result of \citet{cai2023}, showing that deep learning can surpass the standard quantum limit using only classical light, underscores the importance of this question.
 
-% key open question -- needs careful framing
+Systematic studies are needed that compare quantum and classical imaging under identical deep learning reconstruction pipelines, controlling for photon budget, detector efficiency, and image complexity. Such studies would clarify whether the quantum advantage lies primarily in the raw measurement quality, in the statistical structure of the noise (which a network might learn to exploit), or in some combination of both.
 
 \subsection{Hardware--Software Co-Design}
 
-% programmable photonics, differentiable optics, extend Wang 2019 idea
+The end-to-end optimisation paradigm demonstrated by \citet{wang2019} for ghost imaging suggests a broader opportunity for hardware--software co-design, where the optical system and reconstruction algorithm are jointly optimised.
 
-The end-to-end optimisation paradigm demonstrated by \citet{wang2019} for ghost imaging suggests a broader opportunity for hardware--software co-design, where the optical system and reconstruction algorithm are jointly optimised. Extending this approach to quantum optical systems---where the measurement apparatus includes nonlinear crystals, parametric sources, and single-photon detectors---is a promising but technically challenging direction.
+The concept of differentiable optics, where optical system parameters are treated as trainable variables in end-to-end gradient-based optimisation, has gained traction in classical computational imaging. For quantum imaging systems, this would involve jointly optimising SPDC source parameters (pump wavelength, crystal orientation, phase-matching conditions), spatial light modulator patterns, and the reconstruction network within a single differentiable pipeline. While the non-differentiable nature of photon detection events presents a technical challenge (requiring reparameterisation tricks or score-function gradient estimators), the potential for measurement reductions beyond what either component can achieve alone motivates further investigation.
+
+Programmable photonic circuits present a particularly interesting platform for such co-design, since they can potentially serve as both the measurement apparatus and a component of the reconstruction computation, processing quantum optical states directly without classical conversion.

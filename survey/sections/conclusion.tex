@@ -1,12 +1,29 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-% draft -- finalise later
+This survey has reviewed the field of deep learning-based reconstruction for quantum imaging systems, covering ghost imaging, compressed sensing with quantum correlations, sub-shot-noise imaging, and hybrid classical--quantum architectures.
 
-This survey has reviewed the emerging field of deep learning-based reconstruction for quantum imaging systems, covering ghost imaging, compressed sensing with quantum correlations, sub-shot-noise imaging, and hybrid classical--quantum architectures.
+Our principal findings are as follows. First, deep learning enables measurement reductions of one to two orders of magnitude in ghost imaging reconstruction, with end-to-end learned approaches providing the largest gains through joint optimisation of measurement and reconstruction. Second, the field is converging towards U-Net and GAN-based architectures, mirroring trends in classical computational imaging. Third, deep unfolding methods, which embed the physics of the forward model into the network structure, have recently been applied to ghost imaging and offer advantages in interpretability and data efficiency over purely data-driven approaches. Fourth, deep learning denoising is beginning to be applied to quantum-correlated imaging systems, with initial results suggesting that learned denoisers can complement or even substitute for quantum noise reduction in some settings.
 
-Our principal findings are as follows. First, deep learning enables measurement reductions of one to two orders of magnitude in ghost imaging reconstruction, with end-to-end learned approaches providing the largest gains through joint optimisation of measurement and reconstruction. Second, the field is converging towards U-Net and GAN-based architectures, mirroring trends in classical computational imaging. Third, critical gaps remain in standardised benchmarking, high-resolution scalability, and systematic evaluation of quantum advantage in the presence of deep learning.
+\subsection*{Research Gaps}
 
-% add: research gaps summary, future directions, community recommendations
+Several gaps in the current literature limit progress and should be prioritised:
+\begin{enumerate}[label=(\roman*)]
+    \item No standardised benchmarks or shared datasets exist for quantum imaging reconstruction, making rigorous cross-method comparison difficult.
+    \item Most methods have been tested only on small images ($28 \times 28$ to $64 \times 64$ pixels); scalability to practical imaging resolutions is undemonstrated.
+    \item No controlled studies have compared quantum and classical correlations under identical deep learning reconstruction pipelines, leaving the practical quantum advantage unquantified.
+    \item Deep unfolding, which has proved effective in classical compressed sensing, has only recently been applied to ghost imaging and has not yet been explored for other quantum imaging modalities such as sub-shot-noise imaging.
+    \item Hybrid quantum--classical architectures remain constrained by NISQ hardware limitations, data loading bottlenecks, and trainability issues such as barren plateaus.
+\end{enumerate}
 
-The intersection of quantum imaging and deep learning remains a fertile area for research, with significant potential for both fundamental insights and practical applications. As quantum optical hardware matures and deep learning methods continue to advance, their synergistic integration promises imaging capabilities that transcend the limits of either approach alone.
+\subsection*{Recommendations}
+
+Based on the gaps identified, we offer the following recommendations for the research community:
+\begin{itemize}
+    \item Develop shared benchmark datasets incorporating both simulated and experimental quantum imaging data with calibrated noise parameters and known ground truth.
+    \item Conduct systematic studies comparing quantum and classical imaging under identical deep learning pipelines, controlling for photon budget and detector characteristics, to quantify the practical value of quantum correlations.
+    \item Explore deep unfolding approaches for quantum-specific measurement models beyond ghost imaging, particularly for sub-shot-noise imaging where the noise statistics differ from standard Poisson assumptions.
+    \item As quantum hardware matures, investigate hybrid architectures that process quantum imaging data natively, without intermediate classical conversion, to preserve quantum information throughout the reconstruction pipeline.
+\end{itemize}
+
+Quantum imaging and deep learning is an active research area with scope for both fundamental and applied contributions. As quantum optical hardware improves and deep learning methods develop further, combining the two should yield imaging capabilities beyond what either can achieve on its own.

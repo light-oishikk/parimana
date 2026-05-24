@@ -11,8 +11,10 @@
 \usepackage{float}
 \usepackage{caption}
 \usepackage{titlesec}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds, calc}
 
-\hypersetup{colorlinks=true, linkcolor=blue!70!black, citecolor=blue!60!black, urlcolor=blue!50!black}
+\hypersetup{colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black}
 \titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
 \titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
 \setlength{\parskip}{0.3em}
@@ -23,19 +25,27 @@
 Oishik Kar\\
 \small Department of Computer Science and Engineering\\
 \small Indian Institute of Information Technology Dharwad\\
-\small \texttt{oishik.kar@iiitdwd.ac.in}
+\small \texttt{23bcs089@iiitdwd.ac.in}
 }
 
 \date{June 2026 \quad\textbar\quad PARIMANA Summer Internship Program, Qmet Tech Foundation}
 
 \begin{document}
+
+\twocolumn[
 \maketitle
 
-\begin{abstract}
-Quantum imaging systems---including ghost imaging, entangled-photon compressed sensing, and sub-shot-noise microscopy---exploit non-classical photon correlations to surpass classical limits in sensitivity and resolution. However, reconstructing high-quality images from the sparse, noisy measurements intrinsic to these systems remains computationally demanding. This survey systematically reviews deep learning architectures that have been applied to quantum imaging reconstruction. We categorise methods along three axes: imaging modality, neural network architecture, and reconstruction task. Our review reveals that deep learning enables measurement reductions of one to two orders of magnitude in ghost imaging, identifies a convergence towards U-Net and GAN-based architectures, and highlights critical gaps in standardised benchmarking. We conclude by discussing hybrid classical--quantum reconstruction frameworks and proposing directions for quantum-inspired neural architectures in imaging pipelines.
-\end{abstract}
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\textbf{Abstract.}
+Quantum imaging systems, including ghost imaging, entangled-photon compressed sensing, and sub-shot-noise microscopy, exploit non-classical photon correlations to surpass classical limits in sensitivity and resolution. However, reconstructing high-quality images from the sparse, noisy measurements intrinsic to these systems remains computationally demanding. This survey reviews deep learning architectures applied to quantum imaging reconstruction. We categorise methods along three axes: imaging modality, neural network architecture, and reconstruction task. Our review shows that deep learning enables measurement reductions of one to two orders of magnitude in ghost imaging, identifies a convergence towards U-Net and GAN-based architectures, and highlights critical gaps in standardised benchmarking. We conclude by discussing hybrid classical--quantum reconstruction frameworks and proposing directions for quantum-inspired neural architectures in imaging pipelines.
 
+\vspace{0.5em}
 \noindent\textbf{Keywords:} quantum imaging, ghost imaging, deep learning, compressed sensing, image reconstruction, quantum optics, neural networks
+\end{minipage}
+\end{center}
+\vspace{0.8em}
+]
 
 \input{sections/introduction}
 \input{sections/background}

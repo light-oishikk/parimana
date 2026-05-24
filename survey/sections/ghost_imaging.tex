@@ -1,11 +1,11 @@
 \section{Deep Learning for Ghost Imaging Reconstruction}
 \label{sec:ghost_imaging}
 
-The application of deep learning to ghost imaging reconstruction has been the most active area at the intersection of quantum imaging and neural networks. This section reviews the principal approaches, organised by network architecture.
+Ghost imaging reconstruction is the area where deep learning has seen the most activity within quantum imaging. This section reviews the principal approaches, organised by network architecture.
 
 \subsection{Fully Connected and CNN-Based Approaches}
 
-\citet{lyu2017} provided the first demonstration that a neural network could reconstruct ghost images from bucket detector measurements. Their approach used a fully connected network trained on pairs of bucket signals and ground-truth images, achieving recognisable reconstruction of $28 \times 28$ handwritten digits at a sampling ratio as low as 12.5\%---a dramatic improvement over the correlation-based method (Eq.~\ref{eq:gi_correlation}), which requires sampling ratios approaching 100\% for comparable quality.
+\citet{lyu2017} provided the first demonstration that a neural network could reconstruct ghost images from bucket detector measurements. Their approach used a fully connected network trained on pairs of bucket signals and ground-truth images, achieving recognisable reconstruction of $28 \times 28$ handwritten digits at a sampling ratio as low as 12.5\%, a significant improvement over the correlation-based method (Eq.~\ref{eq:gi_correlation}), which requires sampling ratios approaching 100\% for comparable quality.
 
 \citet{he2018} extended this work with a convolutional architecture, demonstrating improved generalisation to object categories not seen during training. Their CNN employed multiple convolutional layers with batch normalisation and ReLU activations, and was validated on both simulated and experimental ghost imaging data. Notably, the CNN-based approach maintained reasonable reconstruction quality even at sampling ratios below 10\%, where traditional methods produce severely degraded images.
 
@@ -15,7 +15,7 @@ The application of deep learning to ghost imaging reconstruction has been the mo
 
 Generative adversarial networks \citep{goodfellow2014} have been applied to ghost imaging to improve the perceptual quality of reconstructions. The adversarial training framework encourages the generator to produce images that are statistically indistinguishable from real images, yielding reconstructions with sharper edges and more realistic textures than those obtained from MSE-trained networks.
 
-However, GAN-based methods carry an inherent risk of \emph{hallucination}---generating plausible but incorrect image features---which is particularly concerning in scientific imaging applications where fidelity to the true object is paramount. This trade-off between perceptual quality and pixel-level accuracy remains an active area of investigation.
+However, GAN-based methods carry an inherent risk of \emph{hallucination}, generating plausible but incorrect image features, which is particularly concerning in scientific imaging applications where fidelity to the true object is paramount. This trade-off between perceptual quality and pixel-level accuracy remains an active area of investigation.
 
 \subsection{End-to-End Learned Approaches}
 
@@ -48,4 +48,4 @@ Several trends emerge from this comparison. First, all methods achieve usable re
 
 \subsection{Discussion}
 
-The reviewed works establish that deep learning is a transformative tool for ghost imaging reconstruction. However, several limitations persist. Most studies operate on small image sizes ($28\times28$ to $64\times64$); scalability to high-resolution imaging remains underexplored. The reliance on simulated data in many studies raises questions about robustness to real experimental noise and detector imperfections. Finally, the fundamental question of whether quantum correlations provide an advantage over classical correlations \emph{when combined with deep learning} has not been systematically addressed.
+The reviewed works establish that deep learning is a transformative tool for ghost imaging reconstruction. However, several limitations persist. Most studies operate on small image sizes ($28\times28$ to $64\times64$); scalability to high-resolution imaging remains underexplored. The reliance on simulated data in many studies raises questions about robustness to real experimental noise and detector imperfections. Finally, whether quantum correlations provide an advantage over classical correlations \emph{when combined with deep learning} has not yet been studied in a controlled setting.

@@ -3,7 +3,7 @@
 
 \subsection{Quantum Imaging Fundamentals}
 
-Quantum imaging relies on photon pairs generated through spontaneous parametric down-conversion (SPDC), in which a pump photon incident on a nonlinear crystal produces two daughter photons---conventionally termed \emph{signal} and \emph{idler}---that are correlated in position, momentum, and time. These correlations arise from the phase-matching conditions of the nonlinear interaction and can be either classical or genuinely quantum (entangled) depending on the experimental configuration.
+Quantum imaging relies on photon pairs generated through spontaneous parametric down-conversion (SPDC), in which a pump photon incident on a nonlinear crystal produces two daughter photons, conventionally termed \emph{signal} and \emph{idler}, that are correlated in position, momentum, and time. These correlations arise from the phase-matching conditions of the nonlinear interaction and can be either classical or genuinely quantum (entangled) depending on the experimental configuration.
 
 The spatial correlations between signal and idler photons enable imaging protocols where information about an object is extracted by measuring correlations between spatially separated detectors, rather than by direct imaging. This principle underlies ghost imaging, quantum illumination, and related protocols.
 
@@ -18,13 +18,65 @@ The quantum nature of the original ghost imaging was debated after \citet{bennin
     \label{eq:gi_correlation}
 \end{equation}
 
-\noindent where $B_m$ is the bucket detector signal for the $m$-th pattern $\phi_m(\mathbf{r})$, $\langle B \rangle$ is the mean bucket signal, and $M$ is the total number of measurements. High-quality reconstruction via Eq.~\eqref{eq:gi_correlation} typically requires $M$ to be comparable to or greater than the number of pixels in the reconstructed image \citep{erkmen2010}, motivating the development of more efficient reconstruction methods.
+\noindent where $B_m$ is the bucket detector signal for the $m$-th pattern $\phi_m(\mathbf{r})$, $\langle B \rangle$ is the mean bucket signal, and $M$ is the total number of measurements. High-quality reconstruction via Eq.~\eqref{eq:gi_correlation} typically requires $M$ to be comparable to or greater than the number of pixels in the reconstructed image \citep{erkmen2010}, motivating the development of more efficient reconstruction methods. Figure~\ref{fig:pipeline} illustrates the computational ghost imaging pipeline with deep learning reconstruction.
+
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+    node distance=0.4cm and 0.55cm,
+    block/.style={rectangle, rounded corners=3pt, draw=black!70, fill=blue!6, font=\scriptsize, minimum height=0.8cm, minimum width=1.4cm, align=center, text width=1.3cm},
+    data/.style={rectangle, rounded corners=3pt, draw=black!50, fill=orange!8, font=\scriptsize, minimum height=0.6cm, align=center},
+    result/.style={rectangle, rounded corners=3pt, draw=black!70, fill=green!8, font=\scriptsize, minimum height=0.8cm, minimum width=1.4cm, align=center, text width=1.3cm},
+    arr/.style={-{Stealth[length=2mm]}, semithick, black!60},
+    lbl/.style={font=\tiny\itshape, text=black!60}
+]
+
+% Top path: measurement
+\node[block] (slm) {Spatial Light\\Modulator};
+\node[block, right=0.6cm of slm] (obj) {Object};
+\node[block, right=0.6cm of obj] (det) {Bucket\\Detector};
+\node[data, right=0.6cm of det] (meas) {$\mathbf{y} \in \mathbb{R}^M$};
+
+\draw[arr] (slm) -- node[above, lbl] {patterns $\phi_m$} (obj);
+\draw[arr] (obj) -- node[above, lbl] {light} (det);
+\draw[arr] (det) -- node[above, lbl] {signals} (meas);
+
+% Known patterns
+\node[data, below=0.4cm of slm] (pats) {$\Phi \in \mathbb{R}^{M \times N}$};
+\draw[arr, dashed] (slm) -- node[right, lbl] {known} (pats);
+
+% Neural network
+\node[block, right=0.6cm of meas, fill=purple!10, text width=1.7cm, minimum width=1.9cm] (nn) {Neural Network\\$f_\theta(\mathbf{y}, \Phi)$};
+
+\draw[arr] (meas) -- (nn);
+\draw[arr] (pats) -| node[below, lbl, pos=0.3] {matrix} (nn);
+
+% Outputs
+\node[result, right=0.6cm of nn] (recon) {Reconstructed\\Image $\hat{\mathbf{x}}$};
+\draw[arr] (nn) -- (recon);
+
+% Traditional path (below)
+\node[block, below=1cm of nn, fill=gray!10] (corr) {Correlation\\(Eq.~1)};
+\node[result, right=0.6cm of corr, fill=gray!8] (trad) {Traditional\\Result};
+
+\draw[arr, gray] (meas) |- (corr);
+\draw[arr, gray] (pats) -| (corr);
+\draw[arr, gray] (corr) -- (trad);
+
+% Labels
+\node[lbl, above=0.1cm of nn] (dlabel) {\textbf{Deep learning path}};
+\node[lbl, below=0.1cm of corr] {\textbf{Traditional path}};
+
+\end{tikzpicture}
+\caption{Computational ghost imaging pipeline. A spatial light modulator projects known patterns onto the object, and a bucket detector records total transmitted intensity. The neural network $f_\theta$ maps measurements $\mathbf{y}$ and pattern matrix $\Phi$ to the reconstructed image, replacing the traditional correlation computation of Eq.~\eqref{eq:gi_correlation}.}
+\label{fig:pipeline}
+\end{figure*}
 
 \subsection{Deep Learning for Inverse Problems}
 
 Deep learning has emerged as a dominant paradigm for solving inverse problems in imaging, where the goal is to recover a signal $\mathbf{x}$ from measurements $\mathbf{y} = \mathcal{A}(\mathbf{x}) + \mathbf{n}$, with $\mathcal{A}$ denoting the forward measurement operator and $\mathbf{n}$ representing noise \citep{barbastathis2019}.
 
-Several architecture families are particularly relevant to quantum imaging. Convolutional neural networks (CNNs) learn hierarchical spatial features through convolutional filters, enabling effective image-to-image mappings for denoising and reconstruction \citep{lecun2015}. The U-Net architecture \citep{ronneberger2015} extends the convolutional approach with an encoder--decoder structure and skip connections that preserve fine-grained spatial information, and has been widely adopted for biomedical and computational imaging tasks. Generative adversarial networks (GANs) employ a generator--discriminator framework that produces perceptually realistic reconstructions by learning the distribution of natural images \citep{goodfellow2014}. Autoencoders, which learn compressed latent representations from which images can be reconstructed, are also relevant for dimensionality reduction in quantum measurement data.
+Several architecture families are particularly relevant to quantum imaging. Convolutional neural networks (CNNs) learn hierarchical spatial features through convolutional filters, enabling effective image-to-image mappings for denoising and reconstruction \citep{lecun2015}. The U-Net architecture \citep{ronneberger2015} extends the convolutional approach with an encoder--decoder structure and skip connections that preserve fine-grained spatial information, and is now commonly used in biomedical and computational imaging. Generative adversarial networks (GANs) employ a generator--discriminator framework that produces perceptually realistic reconstructions by learning the distribution of natural images \citep{goodfellow2014}. Autoencoders, which learn compressed latent representations from which images can be reconstructed, are also relevant for dimensionality reduction in quantum measurement data.
 
 \citet{barbastathis2019} provide a comprehensive review of deep learning for computational imaging, noting that learned approaches can outperform traditional iterative methods in both speed and quality, particularly when training data adequately represents the target image distribution.
 

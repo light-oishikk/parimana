@@ -1,11 +1,11 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Quantum imaging harnesses the non-classical correlations of entangled or correlated photon pairs to achieve imaging modalities fundamentally inaccessible to classical light sources. Since the seminal demonstration of imaging via two-photon entanglement by \citet{pittman1995}, the field has expanded to encompass ghost imaging, quantum illumination, sub-shot-noise microscopy, and entanglement-assisted compressed sensing. These techniques promise advantages in spatial resolution, noise robustness, and the ability to image with photons that never interact with the object \citep{erkmen2010}.
+Quantum imaging harnesses the non-classical correlations of entangled or correlated photon pairs to achieve imaging modalities that are not accessible with classical light sources. Since the seminal demonstration of imaging via two-photon entanglement by \citet{pittman1995}, the field has expanded to encompass ghost imaging, quantum illumination, sub-shot-noise microscopy, and entanglement-assisted compressed sensing. These techniques promise advantages in spatial resolution, noise robustness, and the ability to image with photons that never interact with the object \citep{erkmen2010}.
 
-Despite these remarkable capabilities, a persistent bottleneck remains: \emph{image reconstruction}. Quantum imaging measurements are inherently sparse---limited by detector efficiencies, coincidence counting rates, and photon budgets---and the resulting inverse problems are severely ill-posed. Traditional reconstruction approaches rely on correlation computation or iterative optimisation, which demand large numbers of measurements and significant computation time.
+Despite these capabilities, a key challenge remains: \emph{image reconstruction}. Quantum imaging measurements are inherently sparse, limited by detector efficiencies, coincidence counting rates, and photon budgets, and the resulting inverse problems are severely ill-posed. Traditional reconstruction approaches rely on correlation computation or iterative optimisation, which demand large numbers of measurements and significant computation time.
 
-The emergence of deep learning as a powerful framework for solving inverse problems in computational imaging \citep{barbastathis2019, lecun2015} has opened new avenues for quantum imaging reconstruction. Neural networks can learn strong image priors from data, enabling high-quality reconstruction from far fewer measurements than classical algorithms require. This intersection of quantum optics and deep learning has produced a rapidly growing body of work spanning multiple imaging modalities and network architectures.
+Deep learning has proved effective for solving inverse problems in computational imaging \citep{barbastathis2019, lecun2015} and is now being applied to quantum imaging reconstruction. Neural networks can learn strong image priors from data, enabling high-quality reconstruction from far fewer measurements than classical algorithms require. Work at the intersection of quantum optics and deep learning now spans multiple imaging modalities and network architectures.
 
 \subsection{Scope and Contributions}
 
@@ -22,8 +22,68 @@ The contributions of this survey are:
     \item A unified taxonomic framework classifying methods by imaging modality, DL architecture, and reconstruction task.
     \item A detailed comparative analysis of deep learning approaches for ghost imaging reconstruction, including quantitative performance comparisons.
     \item Identification of critical gaps in benchmarking, reproducibility, and standardisation.
-    \item A discussion of emerging hybrid classical--quantum architectures and future research directions.
+    \item A discussion of hybrid classical--quantum architectures and future research directions.
 \end{itemize}
+
+\noindent Figure~\ref{fig:taxonomy} illustrates this classification framework.
+
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+    node distance=0.4cm and 0.6cm,
+    rootnode/.style={rectangle, rounded corners, draw=black!80, fill=black!8, font=\bfseries\small, minimum height=0.7cm, minimum width=2.8cm, align=center},
+    axisnode/.style={rectangle, rounded corners, draw=black!70, fill=blue!8, font=\small\bfseries, minimum height=0.6cm, minimum width=2.2cm, align=center},
+    leafnode/.style={rectangle, rounded corners, draw=black!50, fill=white, font=\footnotesize, minimum height=0.5cm, minimum width=1.8cm, align=center},
+    arr/.style={-{Stealth[length=2.5mm]}, thick, black!60}
+]
+
+% Root
+\node[rootnode] (root) {Survey Taxonomy};
+
+% Three axes
+\node[axisnode, below left=0.7cm and 3.2cm of root] (mod) {Imaging Modality};
+\node[axisnode, below=0.7cm of root] (arch) {DL Architecture};
+\node[axisnode, below right=0.7cm and 3.2cm of root] (task) {Reconstruction Task};
+
+\draw[arr] (root) -- (mod);
+\draw[arr] (root) -- (arch);
+\draw[arr] (root) -- (task);
+
+% Modality leaves
+\node[leafnode, below=0.25cm of mod, xshift=-1.1cm] (m1) {Ghost Imaging};
+\node[leafnode, right=0.15cm of m1] (m2) {Compressed\\[-1pt]Sensing};
+\node[leafnode, below=0.25cm of mod, xshift=1.1cm] (m3) {Sub-Shot-\\[-1pt]Noise};
+\node[leafnode, below=0.35cm of m2] (m4) {Hybrid};
+
+\draw[arr, thin] (mod) -- (m1);
+\draw[arr, thin] (mod) -- (m2);
+\draw[arr, thin] (mod) -- (m3);
+\draw[arr, thin] (mod) -- (m4);
+
+% Architecture leaves
+\node[leafnode, below=0.25cm of arch, xshift=-1.1cm] (a1) {CNN / U-Net};
+\node[leafnode, right=0.15cm of a1] (a2) {GAN};
+\node[leafnode, below=0.25cm of arch, xshift=1.1cm] (a3) {Deep\\[-1pt]Unfolding};
+\node[leafnode, below=0.35cm of a2] (a4) {Quantum-\\[-1pt]Inspired};
+
+\draw[arr, thin] (arch) -- (a1);
+\draw[arr, thin] (arch) -- (a2);
+\draw[arr, thin] (arch) -- (a3);
+\draw[arr, thin] (arch) -- (a4);
+
+% Task leaves
+\node[leafnode, below=0.25cm of task, xshift=-1.1cm] (t1) {Compressed\\[-1pt]Reconstruction};
+\node[leafnode, right=0.15cm of t1] (t2) {Denoising};
+\node[leafnode, below=0.35cm of t1, xshift=1.1cm] (t3) {End-to-End};
+
+\draw[arr, thin] (task) -- (t1);
+\draw[arr, thin] (task) -- (t2);
+\draw[arr, thin] (task) -- (t3);
+
+\end{tikzpicture}
+\caption{Taxonomic classification framework used in this survey. Methods are categorised along three axes: the quantum imaging modality, the deep learning architecture, and the reconstruction task.}
+\label{fig:taxonomy}
+\end{figure*}
 
 \subsection{Paper Organisation}
 

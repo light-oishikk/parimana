@@ -5,14 +5,42 @@ Sub-shot-noise imaging exploits quantum correlations between photon pairs to ach
 
 \subsection{Quantum Noise Limits in Imaging}
 
-\citet{brida2010} provided the first experimental demonstration of sub-shot-noise quantum imaging, achieving a noise reduction of approximately 40\% below the shot-noise level using spatially entangled photon pairs from SPDC. \citet{samantaray2017} subsequently realised the first sub-shot-noise wide-field microscope, extending the technique from proof-of-concept to a practical imaging modality capable of operating over extended fields of view.
+\citet{brida2010} provided the first experimental demonstration of sub-shot-noise quantum imaging, achieving a noise reduction of approximately 40\% below the shot-noise level using spatially entangled photon pairs from SPDC. Their setup used the photon-number correlations between twin beams: one beam probes the object while the other serves as a reference for differential noise subtraction.
+
+\citet{samantaray2017} subsequently realised the first sub-shot-noise wide-field microscope, extending the technique to a practical imaging modality. Their system used a Type-II BBO crystal pumped by a CW laser at 405\,nm to generate twin beams centred at 810\,nm, detected by a high quantum efficiency CCD camera. The microscope achieved noise at 80\% of the shot-noise level per pixel, with 5\,$\mu$m spatial resolution over a 500\,$\mu$m$^2$ field of view. They also introduced a quantum-enhanced median filter that trades spatial resolution for further noise reduction, pushing noise below 30\% of the shot-noise level. This system demonstrated the best sensitivity per incident photon reported in absorption microscopy at the time, providing a practical pathway for imaging light-sensitive biological samples.
 
 The quantum enhancement in these systems arises from the photon-number correlations between signal and idler beams: by subtracting the idler intensity from the signal, classical noise sources are suppressed below the shot-noise floor. However, the improvement is limited by optical losses and detector inefficiencies, which degrade the quantum correlations.
 
-\subsection{Deep Learning Denoising for Quantum-Enhanced SNR}
+\subsection{Classical Denoising Baselines}
 
-% add: noise models (Poissonian vs sub-Poissonian), DL denoising archs, compare w/ BM3D/NLM
+Before discussing deep learning approaches, it is useful to establish the classical denoising baselines against which learned methods are compared.
 
-Deep learning denoising represents a promising direction for extending the practical advantage of sub-shot-noise imaging. Classical denoising algorithms assume Gaussian or Poissonian noise statistics, which do not accurately describe the sub-Poissonian noise in quantum-correlated imaging. Neural networks trained on data with appropriate quantum noise models could exploit the specific statistical structure of quantum measurements to achieve superior denoising performance.
+BM3D \citep{dabov2007} groups similar 2D image patches into 3D arrays and applies collaborative filtering via shrinkage in a transform domain. It remains one of the strongest classical denoisers for additive white Gaussian noise. For Poisson-dominated photon-counting data, BM3D can be applied after a variance-stabilising transform (VST), typically the Anscombe transform, which maps Poisson-distributed data to approximately Gaussian statistics. However, BM3D tends to over-smooth fine textures at very low photon counts (below approximately 1 photon per pixel on average), where the VST approximation breaks down.
 
-Furthermore, deep learning may help compensate for the optical losses that currently limit practical sub-shot-noise imaging, effectively widening the parameter regime in which quantum advantage is achievable. This possibility has been explored in related contexts such as deep learning microscopy \citep{rivenson2017}, but dedicated studies in the quantum imaging setting remain sparse.
+Non-local means (NLM) \citep{buades2005} denoises each pixel by computing a weighted average over the image, with weights determined by the similarity of surrounding patches. While effective for moderate Gaussian noise, NLM struggles with signal-dependent Poisson noise and degrades substantially in severe photon-limited regimes. Both BM3D and NLM require the Anscombe transform to handle Poisson statistics, and neither accounts for the sub-Poissonian noise characteristic of quantum-correlated imaging, where the variance is reduced below the mean.
+
+\subsection{Deep Learning Denoising Architectures}
+
+Deep learning offers several advantages over classical denoisers in photon-limited imaging: the ability to learn noise-model-specific priors directly from data, end-to-end optimisation without manual parameter tuning, and superior performance at extreme noise levels.
+
+DnCNN \citep{zhang2017dncnn} uses residual learning to predict the noise component rather than the clean image directly. Originally designed for Gaussian noise, DnCNN has been adapted for Poisson noise through variance-stabilising transforms and through direct training on Poisson-corrupted data. It consistently outperforms BM3D in both PSNR and SSIM at low photon counts.
+
+Noise2Noise \citep{lehtinen2018} demonstrated that neural networks can learn to denoise by training on pairs of independently noisy images, without ever seeing a clean target. The key insight is that for zero-mean noise (including Poisson noise after appropriate transformation), the network converges to the expected clean image. This is particularly relevant for quantum imaging, where acquiring clean reference images is often impractical: one can instead train on multiple noisy acquisitions of the same scene.
+
+CARE networks \citep{weigert2018} applied U-Net-based architectures to photon-starved fluorescence microscopy, demonstrating image restoration from up to 60-fold fewer photons and tenfold axial under-sampling. The open-source CARE framework has been widely adopted in biological imaging and demonstrates the practical impact of deep learning denoising in photon-limited settings.
+
+A notable gap remains: these architectures assume Poisson or Gaussian noise statistics. Sub-Poissonian noise in quantum-correlated imaging has a different statistical structure, specifically reduced variance relative to the mean, and adapting network architectures and loss functions to exploit this property is an open problem. Networks trained on Poisson noise may underperform when applied to sub-Poissonian data, since they would not take advantage of the tighter noise distribution.
+
+\subsection{Deep Learning for Quantum-Correlated Imaging}
+
+Several recent works have applied deep learning directly to imaging systems that use quantum-correlated or entangled photon sources.
+
+\citet{li2021} demonstrated a CNN-based approach for fast reconstruction and denoising of correlated-photon imaging using SPDC sources. Their autoencoder-inspired network extracted signal from noisy, photon-sparse frames and outperformed classical numerical reconstruction algorithms in both denoising quality and processing speed, enabling real-time correlated-photon imaging.
+
+\citet{wu2020} applied deep learning to denoise computational ghost imaging reconstructions, which suffer from severe noise at low sampling rates. The learned approach significantly improved image quality compared to traditional ghost imaging reconstruction algorithms, complementing the measurement-reduction work reviewed in Section~\ref{sec:ghost_imaging}.
+
+\citet{scattarella2023} applied a U-Net with a pre-trained VGG-19 encoder (transfer learning) to denoise correlation plenoptic images from quantum-correlated photon sources. Their approach showed significant SSIM improvement over bilateral and Gaussian filters even with small training sets, suggesting that transfer learning from classical image domains can be effective for quantum imaging tasks.
+
+A particularly striking result was reported by \citet{cai2023}, who demonstrated that a Noise2Noise-based deep learning protocol can surpass the standard quantum limit (SQL) in coincidence imaging using only classical light resources. By incorporating photon-number-dependent nonlinear feedback during training, their approach achieved a 14\,dB SNR improvement over the SQL. This result suggests that deep learning can, in some settings, achieve noise performance previously thought to require quantum states, blurring the boundary between classical and quantum imaging advantages.
+
+These results indicate that deep learning is beginning to close the gap between classical and quantum noise performance in imaging. However, systematic comparisons under controlled experimental conditions, using identical optical setups with and without quantum correlations, are still needed to quantify the practical benefit of combining deep learning with genuinely quantum light sources.
