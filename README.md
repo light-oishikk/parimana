@@ -31,7 +31,7 @@ parimana/
 │   ├── eval.py               # Evaluation & metrics
 │   └── utils.py              # Visualization & helpers
 ├── progress-report/          # Periodic progress reports
-│   ├── progress_report.tex   # Week 3 progress report (current)
+│   ├── progress_report.tex   # Interim progress report
 │   └── references.bib
 ├── survey/                   # Main survey document
 │   ├── main.tex              # Master document
@@ -88,11 +88,11 @@ pdflatex main
 |------|--------|------------|--------|
 | 1 | May 1–7 | Scope definition, literature search | ✅ Complete |
 | 2 | May 8–14 | DL for ghost imaging review | ✅ Complete |
-| 3 | May 15–21 | Compressed sensing review | 🔄 In Progress |
-| 4 | May 22–28 | Sub-shot-noise & hybrid methods | 📋 Planned |
-| 5 | May 29–Jun 4 | Hybrid architectures deep dive | 📋 Planned |
-| 6 | Jun 5–11 | Synthesis & gap analysis | 📋 Planned |
-| 7 | Jun 12–18 | Writing & compilation | 📋 Planned |
+| 3 | May 15–21 | Compressed sensing review | ✅ Complete |
+| 4 | May 22–28 | Sub-shot-noise & hybrid methods | ✅ Complete |
+| 5 | May 29–Jun 4 | Hybrid architectures deep dive | ✅ Complete |
+| 6 | Jun 5–11 | Synthesis & gap analysis | ✅ Complete |
+| 7 | Jun 12–18 | Comparative experiments & figures | 📋 Planned |
 | 8 | Jun 19–25 | Review & final submission | 📋 Planned |
 
 ## License
