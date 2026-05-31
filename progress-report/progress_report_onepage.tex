@@ -1,78 +1,70 @@
 \documentclass[11pt,a4paper]{article}
 
-\usepackage[margin=1.8cm, top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage[margin=2cm, top=1.5cm, bottom=1.5cm]{geometry}
 \usepackage{hyperref}
-\usepackage{graphicx}
-\usepackage{natbib}
 \usepackage{xcolor}
-\usepackage{enumitem}
+\usepackage{titlesec}
 
-\hypersetup{colorlinks=true, urlcolor=blue!60!black, linkcolor=blue!60!black, citecolor=blue!60!black}
+\hypersetup{colorlinks=true, urlcolor=blue!70!black, linkcolor=black}
 
-\setlength{\parindent}{0pt}
+\titleformat{\section}{\normalsize\bfseries}{\thesection.}{0.4em}{}
+\titlespacing{\section}{0pt}{7pt}{2pt}
+
 \setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
 \pagestyle{empty}
 
 \begin{document}
 
-% ── Header with logos ───────────────────────────────────
-\begin{minipage}{0.18\textwidth}
-\includegraphics[width=\linewidth]{qmet.jpeg}
-\end{minipage}\hfill
-\begin{minipage}{0.55\textwidth}
-\centering
-{\large\bfseries Interim Progress Report}\\[2pt]
-{\small\textit{A Survey of Deep Learning-Based Reconstruction Methods}\\
-\textit{for Quantum Imaging Systems}}\\[4pt]
-{\footnotesize PARIMANA Summer Internship Program 2026 \,|\, Qmet Tech Foundation}
-\end{minipage}\hfill
-\begin{minipage}{0.09\textwidth}
-\includegraphics[width=\linewidth]{bombay.png}
-\end{minipage}\;
-\begin{minipage}{0.09\textwidth}
-\includegraphics[width=\linewidth]{OIP.png}
-\end{minipage}
+\begin{center}
+{\Large\bfseries Interim Progress Report}\\[3pt]
+{\normalsize A Survey of Deep Learning-Based Reconstruction Methods for Quantum Imaging Systems}\\[3pt]
+{\small Oishik Kar (23BCS089) $\cdot$ B.Tech CSE, IIIT Dharwad $\cdot$ \href{mailto:23bcs089@iiitdwd.ac.in}{23bcs089@iiitdwd.ac.in}}\\[1pt]
+{\small PARIMANA Summer Internship 2026 $\cdot$ Qmet Tech Foundation $\cdot$ Supervisor: Dr.\ Aswath Babu H.}\\[1pt]
+{\small GitHub: \href{https://github.com/light-oishikk/parimana}{github.com/light-oishikk/parimana} \hfill May 2026}
+\end{center}
 
-\vspace{2pt}
-\rule{\textwidth}{1pt}
-\vspace{1pt}
+\vspace{-2pt}
+\rule{\textwidth}{0.8pt}
 
-{\small\textbf{Intern:} Oishik Kar (23BCS089) \,|\, B.Tech CSE, IIIT Dharwad \,|\, \href{mailto:23bcs089@iiitdwd.ac.in}{23bcs089@iiitdwd.ac.in} \hfill \textbf{Supervisor:} Dr.\ Aswath Babu H. \hfill \textbf{Date:} May 2026}
+\section{Introduction}
 
-\rule{\textwidth}{0.4pt}
+This report covers the first three weeks of work on a literature survey of deep learning approaches to quantum image reconstruction. The project focuses on quantum ghost imaging, compressed sensing with entangled photons, sub-shot-noise imaging, and hybrid classical-quantum reconstruction methods.
 
-% ── Body ────────────────────────────────────────────────
-{\small
+\section{Literature Review}
 
-\textbf{\large 1.\; Introduction}\\[2pt]
-This report summarises work completed during the first three weeks of the PARIMANA Summer Internship at Qmet Tech Foundation. The project aims to produce a survey of deep learning methods applied to image reconstruction in quantum optical systems, covering quantum ghost imaging, compressed sensing with entangled photons, sub-shot-noise imaging, and hybrid classical-quantum frameworks.
+A search across IEEE Xplore, arXiv, Google Scholar, and Optica Publishing using quantum imaging and deep learning keywords yielded around 45 relevant papers (1995--2025). These were classified by imaging modality, network architecture, and reconstruction task.
 
-\textbf{\large 2.\; Work Completed}\\[2pt]
-\textbf{Literature Review.}\;
-A systematic search across IEEE Xplore, arXiv, Google Scholar, and Optica Publishing yielded approximately 45 candidate papers (1995--2025). A three-axis taxonomic framework was developed to classify papers by imaging modality, deep learning architecture, and reconstruction task. The ghost imaging domain has been reviewed in depth, tracing the field from Pittman et al.\ (1995) through the first deep learning application by Lyu et al.\ (2017), the CNN approach of He et al.\ (2018), and the end-to-end framework of Wang et al.\ (2019). Compressed sensing methods based on Katz et al.\ (2009) and sub-shot-noise imaging following Brida et al.\ (2010) have been partially reviewed.
+Ghost imaging has been covered in the most detail. The review traces the field from the original experiment by Pittman et al.\ (1995), through computational ghost imaging (Shapiro, 2008; Erkmen and Shapiro, 2010), to the first use of deep learning by Lyu et al.\ (2017), who reconstructed images using only 12.5\% of the measurements needed by traditional correlation methods. The CNN approach of He et al.\ (2018), Shimobaba et al.\ (2018), and the end-to-end framework of Wang et al.\ (2019) with 3--5\,dB PSNR improvement were also reviewed. Compressed sensing (Katz et al., 2009), sub-shot-noise imaging (Brida et al., 2010), and hybrid architectures (Beer et al., 2020; Killoran et al., 2019) have been partially covered.
 
-\textbf{Software Development.}\;
-A Python/PyTorch framework has been developed for empirical validation. It includes: (i) a computational ghost imaging simulator supporting configurable illumination patterns, noise, and correlation-based reconstruction; (ii) three deep learning reconstruction models (fully connected network, CNN, and U-Net) corresponding to the principal architectures identified in the survey; and (iii) a training and evaluation pipeline with PSNR/SSIM metrics. Preliminary experiments with the fully connected network at 12.5\% sampling ratio achieved a validation PSNR of approximately 22\,dB, consistent with published results.
+\section{Software Implementation}
 
-\textbf{\large 3.\; Survey Manuscript Status}\\[2pt]
-The survey manuscript currently stands at approximately 60--70\% completion. The introduction, background, and ghost imaging sections are substantially complete (approximately seven two-column pages). The compressed sensing, sub-shot-noise, hybrid architectures, discussion, and conclusion sections are in draft form. The bibliography contains 22 verified references.
+A Python/PyTorch codebase has been built and is available on GitHub. It contains:
 
-\textbf{\large 4.\; Summary}\\[2pt]
-The project is progressing on schedule. The literature review covers ghost imaging and compressed sensing in depth, with remaining domains under active review. A working software framework has been developed and validated. The remaining period will focus on completing the outstanding review sections, running comprehensive experiments across all architectures, and finalising the manuscript.
+\textbf{Ghost imaging simulator} (\texttt{src/simulator/}) -- generates illumination patterns (Gaussian, binary, Hadamard), computes bucket detector signals with configurable noise, and performs correlation-based reconstruction.
 
-}
+\textbf{Three reconstruction models} (\texttt{src/models/}) -- a fully connected network (Lyu et al., 2017), a CNN (He et al., 2018), and a U-Net (Ronneberger et al., 2015), all adapted for ghost imaging input.
+
+\textbf{Data pipeline and training} (\texttt{src/data/}, \texttt{src/training/}) -- MNIST-based dataset generation, training loop with early stopping, and evaluation with PSNR/SSIM metrics. The fully connected model at 12.5\% sampling achieved ~22\,dB validation PSNR, matching published results.
+
+\section{Survey Manuscript}
+
+The survey document (\texttt{survey/}) is about 60--70\% complete. Introduction, background, and ghost imaging sections are written (~7 two-column pages). Compressed sensing, sub-shot-noise, hybrid methods, discussion, and conclusion are in draft. The bibliography has 22 entries.
+
+\section{Summary and Next Steps}
+
+Work done so far: systematic literature search, detailed review of ghost imaging methods, partial review of three other domains, full software framework with three working models, and a 60--70\% complete survey manuscript. Remaining work: finish the sub-shot-noise and hybrid architecture reviews, run comparative experiments across all models and sampling ratios, and finalise the manuscript for submission.
 
 \vfill
 \rule{\textwidth}{0.4pt}
-{\scriptsize\textbf{References:}
-T.\,B.\ Pittman et al., \textit{Phys.\ Rev.\ A} \textbf{52}, R3429 (1995);\;
-M.\ Lyu et al., \textit{Sci.\ Rep.} \textbf{7}, 17865 (2017);\;
-Y.\ He et al., \textit{Sci.\ Rep.} \textbf{8}, 6469 (2018);\;
-F.\ Wang et al., \textit{Opt.\ Express} \textbf{27}, 25560 (2019);\;
-O.\ Katz et al., \textit{Appl.\ Phys.\ Lett.} \textbf{95}, 131110 (2009);\;
-G.\ Brida et al., \textit{Nat.\ Photon.} \textbf{4}, 227 (2010);\;
-B.\,I.\ Erkmen \& J.\,H.\ Shapiro, \textit{Adv.\ Opt.\ Photon.} \textbf{2}, 405 (2010);\;
-G.\ Barbastathis et al., \textit{Optica} \textbf{6}, 921 (2019).
-}
+{\scriptsize\textbf{Key References:}
+Pittman et al., \textit{PRA} \textbf{52} (1995);
+Erkmen \& Shapiro, \textit{Adv.\ Opt.\ Photon.} \textbf{2} (2010);
+Lyu et al., \textit{Sci.\ Rep.} \textbf{7} (2017);
+He et al., \textit{Sci.\ Rep.} \textbf{8} (2018);
+Wang et al., \textit{Opt.\ Exp.} \textbf{27} (2019);
+Katz et al., \textit{APL} \textbf{95} (2009);
+Brida et al., \textit{Nat.\ Photon.} \textbf{4} (2010);
+Barbastathis et al., \textit{Optica} \textbf{6} (2019).}
 
 \end{document}
