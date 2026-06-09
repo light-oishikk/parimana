@@ -1,0 +1,35 @@
+\section{Empirical Validation}
+\label{sec:empirical}
+
+To complement the literature review, we conducted a controlled set of experiments comparing three representative architectures on a standard computational ghost imaging task. The goal was not to advance the state of the art, but to provide a reproducible baseline illustrating the performance trends identified in the survey.
+
+\subsection{Experimental Setup}
+
+A computational ghost imaging simulator was implemented in Python using PyTorch. The simulator generates random Gaussian illumination patterns, computes bucket detector signals via inner products with the object image, and applies additive Gaussian noise (SNR = 40\,dB). The MNIST handwritten digit dataset ($28 \times 28$ pixels) was used as the object set, following the convention of the reviewed literature.
+
+Three reconstruction models were trained, corresponding to the principal architectures identified in Sections~\ref{sec:ghost_imaging}--\ref{sec:compressed_sensing}: a fully connected network (FCN) following the design of \citet{lyu2017}, a convolutional network (CNN) inspired by \citet{he2018}, and a U-Net with skip connections \citep{ronneberger2015}. All models were trained for 15 epochs using the Adam optimiser with a learning rate of $10^{-3}$ and MSE loss on an NVIDIA T4 GPU. The source code and trained models are publicly available.\footnote{\url{https://github.com/light-oishikk/parimana}}
+
+\subsection{Results}
+
+Table~\ref{tab:our_results} reports the best validation PSNR and SSIM achieved by each model at three sampling ratios. Several observations are consistent with the trends identified in the survey.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\caption{Reconstruction quality (PSNR in dB / SSIM) on MNIST $28\times28$ ghost imaging at three sampling ratios. Best per column in bold.}
+\label{tab:our_results}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Model} & \textbf{6.25\%} & \textbf{12.5\%} & \textbf{25\%} \\
+ & $(M{=}49)$ & $(M{=}98)$ & $(M{=}196)$ \\
+\midrule
+FCN  & 21.45 / 0.880 & 23.35 / 0.921 & 24.48 / 0.937 \\
+CNN  & 19.48 / 0.841 & 22.78 / 0.921 & 25.70 / 0.957 \\
+U-Net & \textbf{22.53 / 0.913} & \textbf{25.75 / 0.954} & \textbf{28.60 / 0.962} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+First, the U-Net consistently outperforms both the FCN and CNN across all sampling ratios, with the performance gap widening at higher ratios (4.1\,dB advantage at 25\% sampling). This confirms the effectiveness of encoder-decoder architectures with skip connections for ghost imaging reconstruction, as suggested by the broader computational imaging literature \citep{barbastathis2019}. Second, all three architectures achieve usable reconstruction quality ($>$19\,dB PSNR) even at the highly compressed 6.25\% sampling ratio (49 measurements for a 784-pixel image), corroborating the one-to-two order-of-magnitude measurement reduction reported in the literature. Third, the CNN underperforms the simpler FCN at the lowest sampling ratio but overtakes it at 25\%, suggesting that the inductive bias of convolutions becomes advantageous only when sufficient measurement information is available.
+
+These results, while obtained on a standard benchmark, reinforce the survey's finding that U-Net-style architectures represent the current best practice for ghost imaging reconstruction, and that deep learning enables dramatic reductions in the number of measurements required for acceptable image quality.
