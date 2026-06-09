@@ -1,0 +1,65 @@
+{
+  "fcn_ratio0.0625": {
+    "model": "fcn",
+    "sampling_ratio": 0.0625,
+    "n_measurements": 49,
+    "best_psnr": 21.45,
+    "best_ssim": 0.8801
+  },
+  "cnn_ratio0.0625": {
+    "model": "cnn",
+    "sampling_ratio": 0.0625,
+    "n_measurements": 49,
+    "best_psnr": 19.48,
+    "best_ssim": 0.8408
+  },
+  "unet_ratio0.0625": {
+    "model": "unet",
+    "sampling_ratio": 0.0625,
+    "n_measurements": 49,
+    "best_psnr": 22.53,
+    "best_ssim": 0.9129
+  },
+  "fcn_ratio0.125": {
+    "model": "fcn",
+    "sampling_ratio": 0.125,
+    "n_measurements": 98,
+    "best_psnr": 23.35,
+    "best_ssim": 0.9205
+  },
+  "cnn_ratio0.125": {
+    "model": "cnn",
+    "sampling_ratio": 0.125,
+    "n_measurements": 98,
+    "best_psnr": 22.78,
+    "best_ssim": 0.9205
+  },
+  "unet_ratio0.125": {
+    "model": "unet",
+    "sampling_ratio": 0.125,
+    "n_measurements": 98,
+    "best_psnr": 25.75,
+    "best_ssim": 0.9537
+  },
+  "fcn_ratio0.25": {
+    "model": "fcn",
+    "sampling_ratio": 0.25,
+    "n_measurements": 196,
+    "best_psnr": 24.48,
+    "best_ssim": 0.9367
+  },
+  "cnn_ratio0.25": {
+    "model": "cnn",
+    "sampling_ratio": 0.25,
+    "n_measurements": 196,
+    "best_psnr": 25.70,
+    "best_ssim": 0.9573
+  },
+  "unet_ratio0.25": {
+    "model": "unet",
+    "sampling_ratio": 0.25,
+    "n_measurements": 196,
+    "best_psnr": 28.60,
+    "best_ssim": 0.9620
+  }
+}
